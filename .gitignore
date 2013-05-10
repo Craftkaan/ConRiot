@@ -1,6 +1,6 @@
-*.class
+/target
+/.settings
+/testserver
 
-# Package Files #
-*.jar
-*.war
-*.ear
+.classpath
+.project
