@@ -1,0 +1,7 @@
+name: ${project.name}
+version: ${project.version}
+author: Craftkaan
+main: net.conriot.prison.ConRiot
+commands:
+  bounty:
+    description: ConRiot bounty commands
