@@ -13,14 +13,6 @@ public class BountyCommand extends AbstractCommand
 		super(plugin);
 		allowAll();
 		
-		/*
-		bounty add
-		bounty mine
-		bounty list
-		Bounty top5
-		Bounty <playername>
-		*/
-		
 		addSubCommand(new BountyAddCommand(plugin), "add");
 		addSubCommand(new BountyMineCommand(plugin), "mine");
 		addSubCommand(new BountyListCommand(plugin), "list", "ls");
