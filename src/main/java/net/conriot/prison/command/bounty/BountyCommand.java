@@ -1,6 +1,7 @@
-package net.conriot.prison.command;
+package net.conriot.prison.command.bounty;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.command.AbstractCommand;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
