@@ -5,3 +5,11 @@ main: net.conriot.prison.ConRiot
 commands:
   bounty:
     description: ConRiot bounty commands
+  onduty:
+    description: Put yourself on guard duty
+  offduty:
+    description: Take yourself off guard duty
+  shu: {}
+  spot:
+    description: Spot a player doing something wrong
+  points: {}
