@@ -76,7 +76,7 @@ public class BountyAddCommand extends AbstractCommand
 			targetData.setBounty(bounty);
 			
 			// TODO: configurable message
-			Bukkit.broadcastMessage(player.getName() + " added " + eco.format(amount) + " bounty to " + target.getName() + ". [$" + eco.format(bounty) + " total]");
+			Bukkit.broadcastMessage(player.getName() + " added " + eco.format(amount) + " bounty to " + target.getName() + ". [" + eco.format(bounty) + " total]");
 		}
 		else
 		{
