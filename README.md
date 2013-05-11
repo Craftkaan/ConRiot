@@ -3,23 +3,12 @@ ConRiot
 
 Todo list:
 ----------------
-Set up project with following structure:
-Mainpackage
-- Commands
-- - GuardCmds
-- - - ondutyCmd
-- - - offdutyCmd
-- - - shuCmd
-- - - spotCmd
-- - - points
-- - WardenCmds
-- - - warden add
-- - - warden del
-- - - warden addpoints
-- - - warden delpoints
-- - - warden addvip
-- - BountyCmds
-- - - bounty add
-- - - bounty mine
-- - - bounty top5
-- - - bounty list
+- Set up command packages - Done @prplz
+- Implement bounty commands - In progress @prplz
+- Implement guard commands
+- Implement warden commands
+- Implement vip management
+- Implement cell rental
+- Implement mining areas
+
+Feel free to add to the list guys
