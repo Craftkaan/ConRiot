@@ -1,5 +1,6 @@
 package net.conriot.prison;
 
+import lombok.Getter;
 import net.conriot.prison.command.bounty.BountyCommand;
 import net.conriot.prison.command.guard.OffDutyCommand;
 import net.conriot.prison.command.guard.OnDutyCommand;
@@ -11,9 +12,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConRiot extends JavaPlugin 
 {
+	@Getter
+	private PlayerDataManager playerData;
+	
 	@Override
 	public void onEnable()
 	{
+		playerData = new PlayerDataManager();
+		
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
 		getCommand("offduty").setExecutor(new OffDutyCommand(this));
