@@ -11,6 +11,14 @@
       <name>Bukkit Public Repository</name>
       <url>http://repo.bukkit.org/content/groups/public</url>
     </repository>
+    <repository>
+      <id>sk89q-repo</id>
+      <url>http://maven.sk89q.com/repo/</url>
+    </repository>
+    <repository>
+      <id>vault-repo</id>
+      <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+    </repository>
   </repositories>
   
   <dependencies>
@@ -19,6 +27,30 @@
       <artifactId>bukkit</artifactId>
       <version>1.5.2-R0.1</version>
       <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q</groupId>
+      <artifactId>worldguard</artifactId>
+      <version>5.7.3</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q</groupId>
+      <artifactId>worldedit</artifactId>
+      <version>5.5.6</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>net.milkbowl.vault</groupId>
+      <artifactId>Vault</artifactId>
+      <version>1.2.26-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+	  <groupId>org.projectlombok</groupId>
+	  <artifactId>lombok</artifactId>
+	  <version>0.11.8</version>
+	  <scope>provided</scope>
     </dependency>
   </dependencies>
   
