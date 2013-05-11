@@ -2,6 +2,7 @@ name: ${project.name}
 version: ${project.version}
 author: Craftkaan
 main: net.conriot.prison.ConRiot
+depend: [WorldEdit, WorldGuard, Vault, PermissionsEx]
 commands:
   bounty:
     description: ConRiot bounty commands

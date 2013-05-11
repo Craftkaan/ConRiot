@@ -28,15 +28,15 @@ public class BountyAddCommand extends AbstractCommand
 		
 		if (args.length == 3)
 		{
-			double amount;
+			int amount;
 			
 			try
 			{
-				amount = Double.parseDouble(args[2]);
+				amount = Integer.parseInt(args[2]);
 			}
 			catch (NumberFormatException ex)
 			{
-				player.sendMessage(ChatColor.RED + "You need to type a number instead of " + args[2]);
+				player.sendMessage(ChatColor.RED + "You need to type a non-decimal number instead of " + args[2]);
 				return;
 			}
 			
@@ -67,7 +67,7 @@ public class BountyAddCommand extends AbstractCommand
 			}
 			*/
 			
-			double bounty = targetData.getBounty();
+			int bounty = targetData.getBounty();
 			bounty += amount;
 			targetData.setBounty(bounty);
 			

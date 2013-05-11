@@ -8,9 +8,4 @@ public class CellManager
 {
 	private ConRiot plugin;
 	private WorldGuardPlugin wg;
-	
-	public static void main(String[] args)
-	{
-		// TODO @Endain
-	}
 }

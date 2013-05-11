@@ -6,7 +6,7 @@ import lombok.Setter;
 public class PlayerData
 {
 	@Getter private final String name;
-	@Getter @Setter private double bounty;
+	@Getter @Setter private int bounty;
 
 	public PlayerData(String name)
 	{
