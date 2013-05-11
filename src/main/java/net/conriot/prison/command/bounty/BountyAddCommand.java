@@ -3,6 +3,8 @@ package net.conriot.prison.command.bounty;
 import net.conriot.prison.ConRiot;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
+import net.conriot.prison.economy.EconomyException;
+import net.conriot.prison.economy.EconomyManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,10 +42,13 @@ public class BountyAddCommand extends AbstractCommand
 				return;
 			}
 			
+			EconomyManager eco = getPlugin().getEconomy();
+			
 			// TODO: configurable minimum bounty amount
-			if (amount < 250.0)
+			double min = 250.0;
+			if (amount < min)
 			{
-				player.sendMessage(ChatColor.RED + "The minimum bounty is $250");
+				player.sendMessage(ChatColor.RED + "The minimum bounty is " + eco.format(min));
 				return;
 			}
 			
@@ -56,7 +61,6 @@ public class BountyAddCommand extends AbstractCommand
 			
 			PlayerData targetData = getPlugin().getPlayerData().getOrCreate(target);
 			
-			/*
 			try
 			{
 				getPlugin().getEconomy().takeMoney(player, amount);
@@ -66,14 +70,13 @@ public class BountyAddCommand extends AbstractCommand
 				player.sendMessage(ChatColor.RED + ex.getMessage());
 				return;
 			}
-			*/
 			
 			int bounty = targetData.getBounty();
 			bounty += amount;
 			targetData.setBounty(bounty);
 			
 			// TODO: configurable message
-			Bukkit.broadcastMessage(player.getName() + " added $" + amount + " bounty to " + target.getName() + ". [$" + bounty + " total]");
+			Bukkit.broadcastMessage(player.getName() + " added " + eco.format(amount) + " bounty to " + target.getName() + ". [$" + eco.format(bounty) + " total]");
 		}
 		else
 		{
