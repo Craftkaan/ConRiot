@@ -44,6 +44,7 @@ public class BountyAddCommand extends AbstractCommand
 			if (amount < 250.0)
 			{
 				player.sendMessage(ChatColor.RED + "The minimum bounty is $250");
+				return;
 			}
 			
 			Player target = Bukkit.getPlayer(args[1]);

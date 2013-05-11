@@ -86,7 +86,7 @@ public class BountyListCommand extends AbstractCommand
 	
 	private static class NameComparableBounty implements Comparable<NameComparableBounty> 
 	{
-        public final double bounty;
+        public final int bounty;
         public final String name;
         private final String lowerName;
         
