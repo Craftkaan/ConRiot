@@ -20,5 +20,9 @@ public class CellCommand extends AbstractCommand
 	{
 		sender.sendMessage("cell command help");
 		sender.sendMessage("/cell add");
+		// At some point we could add forced removal and force rental commands
+		// We could also add some sort of lookup commands to get cell owner by
+		// cell ID or cell ID's owned by a player of given name.
+		//  - Endain
 	}
 }

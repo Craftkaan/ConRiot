@@ -1,6 +1,7 @@
 package net.conriot.prison;
 
 import lombok.Getter;
+import net.conriot.prison.cells.CellManager;
 import net.conriot.prison.command.bounty.BountyCommand;
 import net.conriot.prison.command.guard.OffDutyCommand;
 import net.conriot.prison.command.guard.OnDutyCommand;
@@ -15,6 +16,7 @@ public class ConRiot extends JavaPlugin
 {
 	@Getter private PlayerDataManager playerData;
 	@Getter private EconomyManager economy;
+	@Getter private CellManager cells;
 	
 	@Override
 	public void onEnable()
@@ -25,11 +27,13 @@ public class ConRiot extends JavaPlugin
 		if (economy.setup())
 		{
 			getLogger().info("Integrating with " + economy.getName() + " through Vault");
-		}
-		else
+		} else
 		{
 			getLogger().warning("Failed to integrate with an economy plugin through Vault");
 		}
+		
+		// Load up the cell rental manager
+		cells = new CellManager(this);
 		
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
