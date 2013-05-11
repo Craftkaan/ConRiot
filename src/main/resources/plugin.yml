@@ -14,3 +14,5 @@ commands:
   spot:
     description: Spot a player doing something wrong
   points: {}
+  cell:
+    description: Cell management commands
