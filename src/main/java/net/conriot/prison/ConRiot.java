@@ -9,6 +9,7 @@ import net.conriot.prison.command.guard.PointsCommand;
 import net.conriot.prison.command.guard.ShuCommand;
 import net.conriot.prison.command.guard.SpotCommand;
 import net.conriot.prison.economy.EconomyManager;
+import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
 
 import org.bukkit.plugin.java.JavaPlugin;
