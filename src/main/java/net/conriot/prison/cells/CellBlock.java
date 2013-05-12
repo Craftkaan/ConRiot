@@ -7,19 +7,18 @@ import java.util.Map.Entry;
 import lombok.Getter;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -45,13 +44,18 @@ public class CellBlock implements Listener
 	{
 		this.plugin = plugin;
 		
+		// Instantiate lookup hashmap
+		lockToCell = new HashMap<Location, Cell>();
+		signToCell = new HashMap<Location, Cell>();
+		idToCell = new HashMap<String, Cell>();
+		
 		// Get the file for the block data
-		blockFile = new ConfigAccessor(plugin, file);
+		blockFile = new ConfigAccessor(plugin, "cells/" + file + ".yml");
 		
 		// Verify we have enough info
 		if(!(valid = hasNeededKeys()))
 		{
-			plugin.getLogger().warning("Cell Block '" + file + "' did not have sufficient keys!");
+			plugin.getLogger().warning("Cell Block '" + file + "' didn't have sufficient keys!");
 			return; // Log a nice warning so we know what's up
 		}
 		
@@ -89,22 +93,38 @@ public class CellBlock implements Listener
 		return true;
 	}
 	
-	public boolean addCell(String regionId, String cellId, Location lock, Location sign)
+	public boolean addCell(String regionId, String cellId, Location lock, Location sign, Player p)
 	{
 		// Get the region to use
 		ProtectedRegion r = rm.getRegion(regionId);
 		if(r == null)
+		{
+			p.sendMessage(ChatColor.RED + "No region with Id of: '" + regionId + "'!");
 			return false;
+		}
+		
+		// Verify the given region is part of this cell block
+		//Vector mid = Vector.getMidpoint(r.getMinimumPoint(), r.getMaximumPoint());
+		//if(!region.contains(mid.getBlockX(), mid.getBlockY(), mid.getBlockZ()))
+		if(!(region.contains(r.getMinimumPoint()) && region.contains(r.getMaximumPoint())))
+		{
+			p.sendMessage(ChatColor.RED + "Region: '" + regionId + "' is not a part of this cell block!");
+			return false;
+		}
 		
 		// Verify we don't already have a cell with this id
 		if(idToCell.containsKey(cellId))
+		{
+			p.sendMessage(ChatColor.RED + "Cell with an Id of: '" + cellId + "' already exists!");
 			return false;
+		}
 		
 		// Create and add the new cell
 		Cell c = new Cell(plugin, this, rm, blockFile, world, cellId);
 		c.add(r, cellId, lock, sign);
 		lockToCell.put(c.getLock(), c);
 		signToCell.put(c.getSign(), c);
+		idToCell.put(c.getId(), c);
 		return true;
 	}
 	
@@ -115,32 +135,16 @@ public class CellBlock implements Listener
 		return false;
 	}
 	
-	private boolean chunkIntersects(Chunk c)
-	{
-		if(c.getWorld() != world)
-			return false;
-		if(region.contains(new BlockVector2D(c.getX(), c.getZ())) ||
-		   region.contains(new BlockVector2D(c.getX() + 16, c.getZ())) ||
-		   region.contains(new BlockVector2D(c.getX() + 16, c.getZ() + 16)) ||
-		   region.contains(new BlockVector2D(c.getX(), c.getZ() + 16)))
-			return true;
-		return false;
-	}
-	
-	private boolean insideChunk(Chunk c, Location l)
-	{
-		if(c.getWorld() != l.getWorld())
-			return false;
-		if(l.getX() >= c.getX() && l.getX() <= c.getX() + 16)
-			if(l.getZ() >= c.getZ() && l.getZ() <= c.getZ() + 16)
-				return true;
-		return false;
-	}
-	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockBreak(BlockBreakEvent event)
 	{
+		// Don't bother is event was cancelled
+		if(event.isCancelled())
+			return;
+		
 		// Only care about the event if in this cell block
+		if(event.getBlock() == null)
+			return;
 		if(!isInside(event.getBlock().getLocation()))
 			return;
 		
@@ -162,21 +166,17 @@ public class CellBlock implements Listener
 	@EventHandler
 	public void onChunkLoad(ChunkLoadEvent event)
 	{
-		Chunk c = event.getChunk();
-		// Only care about this event if it is local
-		if(!chunkIntersects(c))
-			return;
-		
 		// Update all signs in the chunk
 		for(Entry<Location, Cell> cell : signToCell.entrySet())
-			if(insideChunk(c, cell.getKey()))
-				cell.getValue().update();
+			cell.getValue().update();
 	}
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event)
 	{
 		// Only care about the event if in this cell block
+		if(event.getClickedBlock() == null)
+			return;
 		if(!isInside(event.getClickedBlock().getLocation()))
 			return;
 		

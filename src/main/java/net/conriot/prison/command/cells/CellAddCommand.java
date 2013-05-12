@@ -50,7 +50,7 @@ public class CellAddCommand extends AbstractCommand
 			CellBlock cb = getPlugin().getCells().getCellBlock(b.getLocation());
 			if(cb == null)
 			{
-				sender.sendMessage(ChatColor.RED + "You are not in a valid cell block!");
+				sender.sendMessage(ChatColor.RED + "Sign is not in a valid cell block!");
 				return;
 			}
 			
@@ -59,16 +59,16 @@ public class CellAddCommand extends AbstractCommand
 			switch(b.getData())
 			{
 			case 0x2:
-				lock = b.getLocation().add(0, -1, 1);
-				break;
-			case 0x3:
-				lock = b.getLocation().add(0, -1, -1);
-				break;
-			case 0x4:
 				lock = b.getLocation().add(1, -1, 0);
 				break;
-			case 0x5:
+			case 0x3:
 				lock = b.getLocation().add(-1, -1, 0);
+				break;
+			case 0x4:
+				lock = b.getLocation().add(0, -1, -1);
+				break;
+			case 0x5:
+				lock = b.getLocation().add(0, -1, 1);
 				break;
 			default:
 				sender.sendMessage(ChatColor.RED + "Error determining sign's cardinal direction!");
@@ -76,10 +76,8 @@ public class CellAddCommand extends AbstractCommand
 			}
 			
 			// Attempt to add the cell
-			if(cb.addCell(args[2], args[1], lock, b.getLocation()))
+			if(cb.addCell(args[2], args[1], lock, b.getLocation(), p))
 				sender.sendMessage(ChatColor.GREEN + "You have successfully added cell: " + args[1] + "!");
-			else
-				sender.sendMessage(ChatColor.RED + "You are not in a valid cell block!");
 		} else
 		{
 			sender.sendMessage(ChatColor.RED + "You do not have permission to add cells!");

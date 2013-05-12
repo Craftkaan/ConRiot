@@ -2,6 +2,7 @@ package net.conriot.prison.cells;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -31,6 +32,7 @@ public class Cell
 	@Getter private Location sign;
 	@Getter private Location lock;
 	@Getter private boolean valid;
+	private boolean needsUpdate;
 	private BukkitTask expireTask;
 	
 	public Cell(ConRiot plugin, CellBlock cb, RegionManager rm, ConfigAccessor blockFile, World world, String id)
@@ -39,11 +41,12 @@ public class Cell
 		this.blockFile = blockFile;
 		this.cb = cb;
 		this.id = id;
+		this.needsUpdate = true;
 		
 		// Verify we have enough info
 		if(!(valid = hasNeededKeys()))
 		{
-			plugin.getLogger().warning("Cell '" + id + "' did not have sufficient keys!");
+			plugin.getLogger().warning("Cell '" + id + "' didn't have sufficient keys!");
 			return; // Log a nice warning so we know what's up
 		}
 		
@@ -107,12 +110,17 @@ public class Cell
 	
 	public void delete()
 	{
+		// Clear owners of region
+		region.getOwners().getPlayers().clear();
+		// Delete contents from file
 		blockFile.getConfig().set("cell." + id + ".owner", null);
 		blockFile.getConfig().set("cell." + id + ".expiration", null);
 		blockFile.getConfig().set("cell." + id + ".lock", null);
 		blockFile.getConfig().set("cell." + id + ".sign", null);
 		blockFile.getConfig().set("cell." + id + ".region", null);
-		blockFile.getConfig().set("list", blockFile.getConfig().getStringList("list").remove(id));
+		List<String> list = blockFile.getConfig().getStringList("list");
+		list.remove(id);
+		blockFile.getConfig().set("list", list);
 		blockFile.saveConfig();
 	}
 	
@@ -129,8 +137,14 @@ public class Cell
 		blockFile.getConfig().set("cell." + id + ".lock", lockString);
 		blockFile.getConfig().set("cell." + id + ".sign", signString);
 		blockFile.getConfig().set("cell." + id + ".region", region.getId());
-		blockFile.getConfig().set("list", blockFile.getConfig().getStringList("list").add(id));
+		List<String> list = blockFile.getConfig().getStringList("list");
+		list.add(id);
+		blockFile.getConfig().set("list", list);
 		blockFile.saveConfig();
+		
+		// Update the sign
+		needsUpdate = true;
+		update();
 		
 		// Mark as valid
 		valid = true;
@@ -145,6 +159,7 @@ public class Cell
 		owner = p.getName();
 		region.getOwners().addPlayer(owner);
 		expiration = System.currentTimeMillis() + 43200000; // 12 Hours, always
+		needsUpdate = true;
 		schedule();
 		update();
 		save();
@@ -164,6 +179,7 @@ public class Cell
 		region.getOwners().removePlayer(owner);
 		owner = null;
 		expiration = 0;
+		needsUpdate = true;
 		update();
 		save();
 	}
@@ -174,6 +190,7 @@ public class Cell
 		p.sendMessage(ChatColor.GOLD + "You have extended your lease duration!" + ChatColor.RED + " (-$" + cb.getPrice() + ")");
 		// Increase the lease duration
 		expiration = expiration + 43200000; // Add 12 hours
+		needsUpdate = true;
 		schedule();
 		update();
 		save();
@@ -181,6 +198,10 @@ public class Cell
 	
 	public void update()
 	{
+		// Don't bother changing if it hasn't changed
+		if(!needsUpdate)
+			return;
+		
 		// Don't bother changing the sign if chunk isn't loaded
 		if(!sign.getWorld().getChunkAt(sign).isLoaded())
 			return;
@@ -208,6 +229,7 @@ public class Cell
 		
 		// Force the sign update
 		s.update(true);
+		needsUpdate = false;
 	}
 	
 	@RequiredArgsConstructor

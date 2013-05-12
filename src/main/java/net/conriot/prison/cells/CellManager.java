@@ -37,6 +37,8 @@ public class CellManager
 		configFile = new ConfigAccessor(plugin, config);
 		cellBlocks = new LinkedList<CellBlock>();
 		List<String> files = configFile.getConfig().getStringList("blocks");
+		if(files.size() == 0)
+			plugin.getLogger().warning("No cell blocks were found, no cell will be loaded!");
 		for(String file : files)
 		{
 			CellBlock cb = new CellBlock(plugin, wg, file);
