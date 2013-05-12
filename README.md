@@ -8,7 +8,7 @@ Todo list:
 - Implement guard commands
 - Implement warden commands
 - Implement vip management
-- Implement cell rental - Done - debugging/testing @Endain
+- Implement cell rental - Done - [Tested] @Endain
 - Implement mining areas - Next TODO @Endain
 
 Feel free to add to the list guys
