@@ -60,10 +60,25 @@ public class EconomyManager
 		{
 			throw new EconomyException("Can't afford " + format(amount));
 		}
-		EconomyResponse resp = economy.withdrawPlayer(name, amount);
-		if (!resp.transactionSuccess())
+		EconomyResponse res = economy.withdrawPlayer(name, amount);
+		if (!res.transactionSuccess())
 		{
-			throw new EconomyException(resp.errorMessage);
+			throw new EconomyException(res.errorMessage);
+		}
+	}
+	
+	public void giveMoney(Player player, double amount) throws EconomyException
+	{
+		giveMoney(player.getName(), amount);
+	}
+	
+	public void giveMoney(String name, double amount) throws EconomyException
+	{
+		assertEconomySetup();
+		EconomyResponse res = economy.depositPlayer(name, amount);
+		if (!res.transactionSuccess())
+		{
+			throw new EconomyException(res.errorMessage);
 		}
 	}
 }
