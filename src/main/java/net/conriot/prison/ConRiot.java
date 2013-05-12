@@ -44,5 +44,6 @@ public class ConRiot extends JavaPlugin
 		getCommand("points").setExecutor(new PointsCommand(this));
 		
 		new PlayerListener(this).register();
+		new BlockListener(this).register();
 	}
 }
