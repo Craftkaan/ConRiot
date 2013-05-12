@@ -1,6 +1,16 @@
+##############################################################################
+#                    ConRiot Copyright (c) 2013 - 2015                       #
+#           This plugin have been specially developed for ConRiot.           #
+#     May not be distributed or used by others than the copyright owner.     #
+#     If you got this file from the internet, please send us an mail with    #
+#                  the direct url to: craftkaan@gmail.com                    #
+##############################################################################
+
 name: ${project.name}
 version: ${project.version}
-author: Craftkaan
+website: http://ConRiot.net
+description: Prison server plugin, specially developed for ConRiot. 
+author: [Craftkaan, prplz, Endain]
 main: net.conriot.prison.ConRiot
 depend: [WorldEdit, WorldGuard, Vault, PermissionsEx]
 commands:
