@@ -10,6 +10,6 @@ Todo list:
 - Implement warden commands
 - Implement vip management
 - Implement cell rental - Done - [Tested] @Endain
-- Implement mining areas - Next TODO @Endain
+- Implement mining areas - In Progress @Endain
 
 Feel free to add to the list guys
