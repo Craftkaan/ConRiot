@@ -4,11 +4,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.conriot.prison.util.ConfigAccessor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class MessageManager
 {
@@ -16,7 +19,7 @@ public class MessageManager
 	
 	public MessageManager()
 	{
-		// TODO Auto-generated constructor stub
+		// TODO
 	}
 	
 	public void load(Plugin plugin)
@@ -28,10 +31,12 @@ public class MessageManager
 		}
 		catch (Exception ex)
 		{
-			// TODO: create default when not existing
-			plugin.getLogger().warning("Exception while loading messages.yml");
-			ex.printStackTrace();
-			return;
+			// No file found, copy over the default instead
+			ConfigAccessor cfg = new ConfigAccessor((JavaPlugin) plugin, "messages.yml");
+			cfg.saveDefaultConfig();
+			plugin.getLogger().info("Default messages.yml was created!");
+			// Get the messages.yml from the ConfigAccessor
+			config = (YamlConfiguration) cfg.getConfig();
 		}
 		for (String key : config.getKeys(false))
 		{
