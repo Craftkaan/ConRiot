@@ -29,6 +29,12 @@
       <type>jar</type>
     </dependency>
     <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>craftbukkit</artifactId>
+      <version>1.5.2-R0.1</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
       <groupId>com.sk89q</groupId>
       <artifactId>worldguard</artifactId>
       <version>5.7.3</version>
