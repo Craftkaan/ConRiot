@@ -1,6 +1,7 @@
 package net.conriot.prison.command.bounty;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
 
@@ -29,15 +30,15 @@ public class BountyCommand extends AbstractCommand
 			PlayerData data = getPlugin().getPlayerData().get(args[0]);
 			if (data == null)
 			{
-				sender.sendMessage(args[0] + " has no bounty");
+				getPlugin().getMessages().send(sender, Message.BOUNTY_HIS_NONE, args[0]);
 			}
 			else if (data.getBounty() == 0)
 			{
-				sender.sendMessage(data.getName() + " has no bounty");
+				getPlugin().getMessages().send(sender, Message.BOUNTY_HIS_NONE, args[0]);
 			}
 			else
 			{
-				sender.sendMessage(data.getName() + " has a bounty of " + getPlugin().getEconomy().format(data.getBounty()));
+				getPlugin().getMessages().send(sender, Message.BOUNTY_HIS, args[0], getPlugin().getEconomy().format(data.getBounty()));
 			}
 		}
 		else

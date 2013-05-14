@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
 
@@ -44,11 +45,10 @@ public class BountyTopCommand extends AbstractCommand
 		
 		int end = list.size() < 5 ? list.size() : 5;
 		
-		// TODO: message config
-		sender.sendMessage("Top 5 bounties");
+		getPlugin().getMessages().send(sender, Message.BOUNTY_TOP_HEADER);
 		for (int i = 0; i < end; i++)
 		{
-			sender.sendMessage((i + 1) + ". " + list.get(i).name + " " + getPlugin().getEconomy().format(list.get(i).bounty));
+			getPlugin().getMessages().send(sender, Message.BOUNTY_TOP_ITEM, i + 1, list.get(i).name, getPlugin().getEconomy().format(list.get(i).bounty));
 		}
 	}
 	

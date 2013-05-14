@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
 
@@ -76,11 +77,10 @@ public class BountyListCommand extends AbstractCommand
 			end = list.size();
 		}
 		
-		// TODO: output format configurable
-		sender.sendMessage("Bounty list page " + page + " of " + pages);
+		getPlugin().getMessages().send(sender, Message.BOUNTY_LIST_HEADER, page, pages);
 		for (int i = start; i < end; i++)
 		{
-			sender.sendMessage(String.format("%02d. %s $%,d", i + 1, list.get(i).name, list.get(i).bounty));
+			getPlugin().getMessages().send(sender, Message.BOUNTY_LIST_ITEM, i + 1, list.get(i).name, getPlugin().getEconomy().format(list.get(i).bounty));
 		}
 	}
 	

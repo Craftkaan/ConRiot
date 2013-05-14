@@ -1,6 +1,7 @@
 package net.conriot.prison.command.bounty;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
 import net.conriot.prison.economy.EconomyException;
@@ -75,8 +76,7 @@ public class BountyAddCommand extends AbstractCommand
 			bounty += amount;
 			targetData.setBounty(bounty);
 			
-			// TODO: configurable message
-			Bukkit.broadcastMessage(player.getName() + " added " + eco.format(amount) + " bounty to " + target.getName() + ". [" + eco.format(bounty) + " total]");
+			getPlugin().getMessages().broadcast(Message.BOUNTY_ADDED, player.getName(), target.getName(), eco.format(amount), eco.format(bounty));
 		}
 		else
 		{
