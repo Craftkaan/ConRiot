@@ -1,4 +1,4 @@
-package net.conriot.prison.command.mines;
+package net.conriot.prison.command.mine;
 
 public class MineCommand {
 	// TODO @Endain

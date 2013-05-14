@@ -1,7 +1,7 @@
 package net.conriot.prison;
 
 import lombok.Getter;
-import net.conriot.prison.cells.CellManager;
+import net.conriot.prison.cell.CellManager;
 import net.conriot.prison.command.bounty.BountyCommand;
 import net.conriot.prison.command.guard.OffDutyCommand;
 import net.conriot.prison.command.guard.OnDutyCommand;

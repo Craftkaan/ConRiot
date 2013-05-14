@@ -1,4 +1,4 @@
-package net.conriot.prison.cells;
+package net.conriot.prison.cell;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.bukkit.plugin.Plugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import net.conriot.prison.ConRiot;
-import net.conriot.prison.command.cells.CellCommand;
+import net.conriot.prison.command.cell.CellCommand;
 import net.conriot.prison.util.ConfigAccessor;
 
 public class CellManager

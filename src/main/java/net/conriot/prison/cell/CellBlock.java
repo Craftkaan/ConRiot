@@ -1,4 +1,4 @@
-package net.conriot.prison.cells;
+package net.conriot.prison.cell;
 
 import java.util.HashMap;
 import java.util.List;

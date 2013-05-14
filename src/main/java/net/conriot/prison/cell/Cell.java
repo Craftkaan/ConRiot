@@ -1,4 +1,4 @@
-package net.conriot.prison.cells;
+package net.conriot.prison.cell;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package net.conriot.prison.command.cells;
+package net.conriot.prison.command.cell;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

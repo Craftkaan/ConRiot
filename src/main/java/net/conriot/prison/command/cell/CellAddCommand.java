@@ -1,4 +1,4 @@
-package net.conriot.prison.command.cells;
+package net.conriot.prison.command.cell;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.conriot.prison.ConRiot;
-import net.conriot.prison.cells.CellBlock;
+import net.conriot.prison.cell.CellBlock;
 import net.conriot.prison.command.AbstractCommand;
 
 public class CellAddCommand extends AbstractCommand
