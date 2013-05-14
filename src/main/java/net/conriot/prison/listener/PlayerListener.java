@@ -1,11 +1,11 @@
 package net.conriot.prison.listener;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.economy.EconomyException;
 
@@ -32,8 +32,7 @@ public class PlayerListener extends AbstractListener
 					try
 					{
 						getPlugin().getEconomy().giveMoney(hunter, data.getBounty());
-						// TODO: configurable message
-						Bukkit.broadcastMessage(hunter.getName() + " collected a bounty of " + getPlugin().getEconomy().format(data.getBounty()) + " for killing " + player.getName());
+						getPlugin().getMessages().broadcast(Message.BOUNTY_COLLECTED, hunter.getName(), player.getName(), data.getBounty());
 						data.setBounty(0);
 					}
 					catch (EconomyException ex)

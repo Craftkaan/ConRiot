@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum Message
 {
 	BOUNTY_ADDED("player", "target", "added", "total"),
+	BOUNTY_COLLECTED("hunter", "victim", "bounty"),
 	BOUNTY_HELP_HEADER(),
 	BOUNTY_HELP_ITEM("cmd", "args", "desc"),
 	BOUNTY_HIS("name", "bounty"),
