@@ -1,0 +1,17 @@
+# to find out the available message names and variables please check src/main/java/net/conriot/prison/Message.java
+# for example: BOUNTY_ADDED("player", "target", "added", "total")
+# first is the message name (can be any case in this file)
+# next is the variables available (player, target, added and total in this case)
+# these ARE case sensitive however, i suggest we stick to lower case always.
+
+bounty_added: '&5.:[&dBounty&5]:. &d{player} &5added a bounty of &d{added} &5to &d{target}. &5[&dTotal {total}&5]'
+bounty_help_header: '&5.:[&dBounty Command Help&5]:.'
+bounty_help_item: '&d{cmd}&5{args} &9{desc}'
+bounty_his: '{name} has a bounty of {bounty}'
+bounty_his_none: '{name} has no bounty'
+bounty_list_header: '&5.:[&dBounty List, Page {page}/{total}&5]:.'
+bounty_list_item: '&5{num}. &d{name} &5[&9{bounty}&5]'
+bounty_mine: 'You have a bounty of {bounty}'
+bounty_mine_none: 'You don''t have any bounty on you, yay!'
+bounty_top_header: '&5.:[&dTop 5 Bounties&5]:.'
+bounty_top_item: '&5{num}. &d{name} &5[&9{bounty}&5]'
