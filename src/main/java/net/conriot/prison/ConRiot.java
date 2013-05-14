@@ -19,6 +19,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private PlayerDataManager playerData;
 	@Getter private EconomyManager economy;
 	@Getter private CellManager cells;
+	@Getter private MessageManager messages;
 	
 	@Override
 	public void onEnable()
@@ -36,6 +37,9 @@ public class ConRiot extends JavaPlugin
 		
 		// Load up the cell rental manager
 		cells = new CellManager(this);
+		
+		messages = new MessageManager();
+		messages.load(this);
 		
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
