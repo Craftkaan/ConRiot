@@ -1,0 +1,36 @@
+# Both block and item parts support item IDs using semicolons.
+# For example to make black wool drop coal:
+# 'wool:15':
+#    coal: 1
+#
+# The number after the item name is a weight.
+# Any key with a colon in it must be quoted due to the nature of 
+# colons in yaml.
+
+snow_block:
+  snow_block: 1
+  
+obsidian:
+  ender_stone: 70
+  # chicken
+  'monster_egg:93': 15
+  # pig
+  'monster_egg:90': 13
+  # sheep
+  'monster_egg:91': 2
+  # cow
+  'monster_egg:92': 1
+  # ocelot
+  'monster_egg:98': 1
+  # squid
+  'monster_egg:94': 1
+  
+ender_stone:
+  ender_stone: 75
+  # chicken
+  'monster_egg:93': 15
+  # pig
+  'monster_egg:90': 13
+  # sheep
+  'monster_egg:91': 2
+  

@@ -1,6 +1,7 @@
 package net.conriot.prison;
 
 import lombok.Getter;
+import net.conriot.prison.block.BlockManager;
 import net.conriot.prison.cell.CellManager;
 import net.conriot.prison.command.bounty.BountyCommand;
 import net.conriot.prison.command.guard.OffDutyCommand;
@@ -20,6 +21,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private EconomyManager economy;
 	@Getter private CellManager cells;
 	@Getter private MessageManager messages;
+	@Getter private BlockManager blockManager;
 	
 	@Override
 	public void onEnable()
@@ -40,6 +42,8 @@ public class ConRiot extends JavaPlugin
 		
 		messages = new MessageManager();
 		messages.load(this);
+		
+		blockManager = new BlockManager(this);
 		
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));

@@ -57,5 +57,11 @@ public class BlockListener extends AbstractListener
 				}.runTask(getPlugin());
 			}
 		}
+		
+		if (getPlugin().getBlockManager().doBlockDrops(block))
+		{
+			event.setCancelled(true);
+			block.setTypeId(0);
+		}
 	}
 }
