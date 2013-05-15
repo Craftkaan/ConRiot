@@ -5,7 +5,8 @@ Todo list:
 ----------------
 - Set up command packages - Done @prplz
 - Implement bounty commands - Done, Tested @prplz
-- Implement a message manager will file backend - Next @prplz
+- Implement a message manager - Done @prplz
+- Implement player data saving - @prplz
 - Implement guard commands
 - Implement warden commands
 - Implement vip management
