@@ -4,14 +4,17 @@ import lombok.Getter;
 import net.conriot.prison.block.BlockManager;
 import net.conriot.prison.cell.CellManager;
 import net.conriot.prison.command.bounty.BountyCommand;
+import net.conriot.prison.command.cell.CellCommand;
 import net.conriot.prison.command.guard.OffDutyCommand;
 import net.conriot.prison.command.guard.OnDutyCommand;
 import net.conriot.prison.command.guard.PointsCommand;
 import net.conriot.prison.command.guard.ShuCommand;
 import net.conriot.prison.command.guard.SpotCommand;
+import net.conriot.prison.command.mine.MineCommand;
 import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
+import net.conriot.prison.mine.MineManager;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +25,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private CellManager cells;
 	@Getter private MessageManager messages;
 	@Getter private BlockManager blockManager;
+	@Getter private MineManager mines;
 	
 	@Override
 	public void onEnable()
@@ -39,6 +43,11 @@ public class ConRiot extends JavaPlugin
 		
 		// Load up the cell rental manager
 		cells = new CellManager(this);
+		getCommand("cell").setExecutor(new CellCommand(this));
+		
+		// Load up the mine manager
+		mines = new MineManager(this);
+		getCommand("mine").setExecutor(new MineCommand(this));
 		
 		messages = new MessageManager();
 		messages.load(this);

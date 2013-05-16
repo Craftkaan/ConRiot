@@ -9,7 +9,6 @@ import org.bukkit.plugin.Plugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import net.conriot.prison.ConRiot;
-import net.conriot.prison.command.cell.CellCommand;
 import net.conriot.prison.util.ConfigAccessor;
 
 public class CellManager
@@ -49,8 +48,8 @@ public class CellManager
 			}
 		}
 		
-		// Register commands
-		plugin.getCommand("cell").setExecutor(new CellCommand(plugin));
+		// Log manager as active
+		plugin.getLogger().info("Cell Manager is online!");
 	}
 	
 	private WorldGuardPlugin getWorldGuard()

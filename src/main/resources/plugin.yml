@@ -26,3 +26,5 @@ commands:
   points: {}
   cell:
     description: Cell management commands
+  mine:
+    description: Mine management commands
