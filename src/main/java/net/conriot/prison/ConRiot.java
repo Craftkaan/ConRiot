@@ -11,10 +11,12 @@ import net.conriot.prison.command.guard.PointsCommand;
 import net.conriot.prison.command.guard.ShuCommand;
 import net.conriot.prison.command.guard.SpotCommand;
 import net.conriot.prison.command.mine.MineCommand;
+import net.conriot.prison.command.stream.StreamCommand;
 import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
 import net.conriot.prison.mine.MineManager;
+import net.conriot.prison.stream.StreamManager;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +28,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private MessageManager messages;
 	@Getter private BlockManager blockManager;
 	@Getter private MineManager mines;
+	@Getter private StreamManager streamManager;
 	
 	@Override
 	public void onEnable()
@@ -48,6 +51,10 @@ public class ConRiot extends JavaPlugin
 		// Load up the mine manager
 		mines = new MineManager(this);
 		getCommand("mine").setExecutor(new MineCommand(this));
+		
+		// Load up the stream manager
+		streamManager = new StreamManager(this);
+		getCommand("stream").setExecutor(new StreamCommand(this));
 		
 		messages = new MessageManager();
 		messages.load(this);

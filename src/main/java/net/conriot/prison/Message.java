@@ -34,7 +34,16 @@ public enum Message
 	MINE_REMOVE_FAILURE("id", "type", "data"),
 	MINE_LIST_HEADER("id"),
 	MINE_LIST_ITEM("type", "id", "data", "weight"),
-	MINE_LIST_FAILURE("id");
+	MINE_LIST_FAILURE("id"),
+	// Stream messages
+	STREAM_ONLINE_HEADER("name"),
+	STREAM_ONLINE("url"),
+	STREAM_HELP_HEADER(),
+	STREAM_HELP_ITEM("cmd", "args", "desc"),
+	STREAM_PERMISSION(),
+	STREAM_ARG_COUNT(),
+	STREAM_ADD_SUCCESS("url"),
+	STREAM_COOLDOWN();
 	
 	@Getter private String[] vars;
 	

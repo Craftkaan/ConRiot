@@ -28,3 +28,5 @@ commands:
     description: Cell management commands
   mine:
     description: Mine management commands
+  stream:
+    description: Stream management commands

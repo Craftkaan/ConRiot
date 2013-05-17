@@ -36,3 +36,12 @@ mine_list_header: '&7.:[&dMaterials for mine: &5{id}&7]:.'
 mine_list_item: '&a - [&2{type}&a(&2{id}&a), &2{data}&a, &2{weight}&a]'
 mine_list_failure: '&7.:[&dMine&7]:. &cCould not list materials for &4{id}&c!'
 
+# STREAM TEXT
+stream_online_header: '&7.:[ &5{name}&d''s Stream is Online! &7]:.'
+stream_online: '&a.:[ &2{url} &a]:.'
+stream_help_header: '&7.:[&dStream Command Help&7]:.'
+stream_help_item: '&d{cmd}&5{args} &9{desc}'
+stream_permission: '&cYou do not have permission to use Stream commands!'
+stream_arg_count: '&7.:[&dStream&7]:. &cIncorrect arg count!'
+stream_add_success: '&7.:[&dStream&7]:. &aMessage set! &a[ &2{url} &a]'
+stream_cooldown: '&7.:[&dStream&7]:. &cYour 10 minute cooldown is not yet finished!'
