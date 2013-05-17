@@ -39,6 +39,8 @@ public class ConRiot extends JavaPlugin
 	{
 		playerData = new PlayerDataManager();
 		
+		playerData.getOrCreate("prplz").setGuardRank("Trainee"); // le test
+		
 		economy = new EconomyManager();
 		if (economy.setup())
 		{

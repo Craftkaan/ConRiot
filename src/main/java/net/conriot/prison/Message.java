@@ -17,38 +17,48 @@ public enum Message
 	BOUNTY_MINE_NONE(),
 	BOUNTY_TOP_HEADER(),
 	BOUNTY_TOP_ITEM("num", "name", "bounty"),
+	
+	// Guard messages
+	GUARD_ALREADY_ON(),
+	GUARD_NOT_GUARD(),
+	GUARD_NOT_ON(),
+	GUARD_OFF("player"),
+	GUARD_ON("player"),
+	
 	// Mine messages
-	MINE_PERMISSION(),
-	MINE_MANAGER_OFFLINE(),
+	MINE_ADD_FAILURE("id", "type", "data"),
+	MINE_ADD_SUCCESS("id", "type", "data", "weight"),
 	MINE_ARG_COUNT(),
-	MINE_HELP_HEADER(),
-	MINE_HELP_ITEM("cmd", "args", "desc"),
-	MINE_CREATE_SUCCESS("id"),
 	MINE_CREATE_FAILURE("id"),
 	MINE_CREATE_SELECTION(),
-	MINE_DELETE_SUCCESS("id"),
+	MINE_CREATE_SUCCESS("id"),
 	MINE_DELETE_FAILURE("id"),
-	MINE_ADD_SUCCESS("id", "type", "data", "weight"),
-	MINE_ADD_FAILURE("id", "type", "data"),
-	MINE_REMOVE_SUCCESS("id", "type", "data"),
-	MINE_REMOVE_FAILURE("id", "type", "data"),
+	MINE_DELETE_SUCCESS("id"),
+	MINE_HELP_HEADER(),
+	MINE_HELP_ITEM("cmd", "args", "desc"),
+	MINE_LIST_FAILURE("id"),
 	MINE_LIST_HEADER("id"),
 	MINE_LIST_ITEM("type", "id", "data", "weight"),
-	MINE_LIST_FAILURE("id"),
-	// Stream messages
-	STREAM_ONLINE_HEADER("name"),
-	STREAM_ONLINE("url"),
-	STREAM_HELP_HEADER(),
-	STREAM_HELP_ITEM("cmd", "args", "desc"),
-	STREAM_PERMISSION(),
-	STREAM_ARG_COUNT(),
-	STREAM_ADD_SUCCESS("url"),
-	STREAM_COOLDOWN(),
+	MINE_MANAGER_OFFLINE(),
+	MINE_PERMISSION(),
+	MINE_REMOVE_FAILURE("id", "type", "data"),
+	MINE_REMOVE_SUCCESS("id", "type", "data"),
+	
 	// OP override messages
 	OP_ARGS(),
 	OP_NOPE("name"),
+	OP_PERMISSION(),
 	OP_SUCCESS("name"),
-	OP_PERMISSION();
+	STREAM_ADD_SUCCESS("url"),
+	STREAM_ARG_COUNT(),
+	STREAM_COOLDOWN(),
+	STREAM_HELP_HEADER(),
+	STREAM_HELP_ITEM("cmd", "args", "desc"),
+	STREAM_ONLINE("url"),
+	
+	// Stream messages
+	STREAM_ONLINE_HEADER("name"),
+	STREAM_PERMISSION();
 	
 	@Getter private String[] vars;
 	

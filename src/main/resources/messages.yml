@@ -17,6 +17,13 @@ bounty_mine_none: 'You don''t have any bounty on you, yay!'
 bounty_top_header: '&5.::[&dTop 5 Bounties&5]::.'
 bounty_top_item: '&5{num}. &d{name} &5[&9{bounty}&5]'
 
+# GUARD TEXT
+guard_already_on: '&6.::[&bGuard&6]::. &cError: &4You''re already on guard duty'
+guard_not_guard: '&6.::[&bGuard&6]::. &cError: &4You''re not a guard'
+guard_not_on: '&6.::[&bGuard&6]::. &cError: &4You''re not on guard duty'
+guard_off: '&6.::[&bGuard&6]::. &b{player} is now off guard duty!'
+guard_on: '&6.::[&bGuard&6]::. &b{player} is now on guard duty!'
+
 # MINE TEXT
 mine_permission: '&cYou do not have permission to use Mine commands!'
 mine_manager_offline: '&7.::[&dMine&7]::. &cMine manager is offline!'
