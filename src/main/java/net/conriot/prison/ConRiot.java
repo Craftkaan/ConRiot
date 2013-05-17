@@ -18,7 +18,9 @@ import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
 import net.conriot.prison.mine.MineManager;
 import net.conriot.prison.stream.StreamManager;
+import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConRiot extends JavaPlugin 
@@ -30,6 +32,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private BlockManager blockManager;
 	@Getter private MineManager mines;
 	@Getter private StreamManager streamManager;
+	@Getter private Permission permission;
 	
 	@Override
 	public void onEnable()
@@ -40,9 +43,23 @@ public class ConRiot extends JavaPlugin
 		if (economy.setup())
 		{
 			getLogger().info("Integrating with " + economy.getName() + " through Vault");
-		} else
+		} 
+		else
 		{
 			getLogger().warning("Failed to integrate with an economy plugin through Vault");
+		}
+		
+		// Get permission interface from vault
+		RegisteredServiceProvider<Permission> rspPerm = getServer().getServicesManager().getRegistration(Permission.class);
+		if (rspPerm != null)
+		{
+			permission = rspPerm.getProvider();
+			getLogger().info("Integrating with " + permission.getName() + " through Vault");
+		}
+		else
+		{
+			getLogger().warning("Failed to integrate with a permission plugin through Vault");
+			getLogger().warning("You really should get a permission plugin working or you're going to get exception spam");
 		}
 		
 		// Load up the cell rental manager
