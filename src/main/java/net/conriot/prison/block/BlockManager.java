@@ -19,6 +19,7 @@ public class BlockManager
 	{
 		this.plugin = plugin;
 		config = new ConfigAccessor(plugin, "blocks.yml");
+		config.saveDefaultConfig();
 		parseConfig();
 	}
 	
