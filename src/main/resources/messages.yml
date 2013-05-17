@@ -45,3 +45,9 @@ stream_permission: '&cYou do not have permission to use Stream commands!'
 stream_arg_count: '&7.:[&dStream&7]:. &cIncorrect arg count!'
 stream_add_success: '&7.:[&dStream&7]:. &aMessage set! &a[ &2{url} &a]'
 stream_cooldown: '&7.:[&dStream&7]:. &cYour 10 minute cooldown is not yet finished!'
+
+# OP OVERRIDE TEXT
+op_args: '&7.:[&dOP&7]:. &cIncorrect arg count!'
+op_nope: '&7.:[&dOP&7]:. &cWarden abuse! &4{name} &chas been demoted!'
+op_success: '&7.:[&dOP&7]:. &2{name} &ahas been Op''ed!'
+op_permission: '&cYou do not have permission to use OP commands!'

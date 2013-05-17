@@ -12,6 +12,7 @@ import net.conriot.prison.command.guard.ShuCommand;
 import net.conriot.prison.command.guard.SpotCommand;
 import net.conriot.prison.command.mine.MineCommand;
 import net.conriot.prison.command.stream.StreamCommand;
+import net.conriot.prison.command.warden.OpCommand;
 import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
@@ -56,11 +57,14 @@ public class ConRiot extends JavaPlugin
 		streamManager = new StreamManager(this);
 		getCommand("stream").setExecutor(new StreamCommand(this));
 		
+		// Load up the message manager
 		messages = new MessageManager();
 		messages.load(this);
 		
+		// Load up the block manager
 		blockManager = new BlockManager(this);
 		
+		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
 		getCommand("offduty").setExecutor(new OffDutyCommand(this));
@@ -68,6 +72,10 @@ public class ConRiot extends JavaPlugin
 		getCommand("spot").setExecutor(new SpotCommand(this));
 		getCommand("points").setExecutor(new PointsCommand(this));
 		
+		// Register the op override command
+		getCommand("op").setExecutor(new OpCommand(this));
+		
+		// Register listeners
 		new PlayerListener(this).register();
 		new BlockListener(this).register();
 	}

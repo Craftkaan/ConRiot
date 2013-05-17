@@ -43,7 +43,12 @@ public enum Message
 	STREAM_PERMISSION(),
 	STREAM_ARG_COUNT(),
 	STREAM_ADD_SUCCESS("url"),
-	STREAM_COOLDOWN();
+	STREAM_COOLDOWN(),
+	// OP override messages
+	OP_ARGS(),
+	OP_NOPE("name"),
+	OP_SUCCESS("name"),
+	OP_PERMISSION();
 	
 	@Getter private String[] vars;
 	

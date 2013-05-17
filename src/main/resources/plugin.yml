@@ -30,3 +30,5 @@ commands:
     description: Mine management commands
   stream:
     description: Stream management commands
+  op:
+    description: Overwritten OP command
