@@ -31,7 +31,10 @@ public enum Message
 	MINE_ADD_SUCCESS("id", "type", "data", "weight"),
 	MINE_ADD_FAILURE("id", "type", "data"),
 	MINE_REMOVE_SUCCESS("id", "type", "data"),
-	MINE_REMOVE_FAILURE("id", "type", "data");
+	MINE_REMOVE_FAILURE("id", "type", "data"),
+	MINE_LIST_HEADER("id"),
+	MINE_LIST_ITEM("type", "id", "data", "weight"),
+	MINE_LIST_FAILURE("id");
 	
 	@Getter private String[] vars;
 	

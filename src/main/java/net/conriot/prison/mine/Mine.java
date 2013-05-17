@@ -6,11 +6,13 @@ import java.util.List;
 import lombok.Getter;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.util.ConfigAccessor;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
@@ -190,6 +192,22 @@ public class Mine
 			return true;
 		}
 		// Return not removed
+		return false;
+	}
+	
+	public void listMaterials(CommandSender s)
+	{
+		plugin.getMessages().send(s, Message.MINE_LIST_HEADER, id);
+		for(MineMaterial m : materials)
+			plugin.getMessages().send(s, Message.MINE_LIST_ITEM, m.type, m.type.getId(), "0x" + Integer.toHexString(m.data), m.weight);
+	}
+	
+	public boolean isInside(int x, int y, int z)
+	{
+		if(x >= min.getBlockX() && x < max.getBlockX())
+			if(y >= min.getBlockY() && y < max.getBlockY())
+				if(z >= min.getBlockZ() && z < max.getBlockZ())
+					return true;
 		return false;
 	}
 }

@@ -11,8 +11,8 @@ Todo list:
 - Implement warden commands
 - Implement vip management
 - Implement cell rental - Done - [Tested] @Endain
-- Implement mining areas - Done - [Testing] @Endain
-- Implement streamer commands - Next TODO @Endain
-- Implement op override command - Next TODO @Endain
+- Implement mining areas - Done - [Tested] @Endain
+- Implement streamer commands - In Progress @Endain
+- Implement op override command - In Progress @Endain
 
 Feel free to add to the list guys

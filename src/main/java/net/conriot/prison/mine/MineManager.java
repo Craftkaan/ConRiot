@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.sk89q.worldedit.bukkit.selections.Selection;
@@ -16,7 +20,7 @@ import net.conriot.prison.mine.refiller.MineRefiller;
 import net.conriot.prison.mine.refiller.V1_5_R3MineRefiller;
 import net.conriot.prison.util.ConfigAccessor;
 
-public class MineManager
+public class MineManager implements Listener
 {
 	private ConRiot plugin;
 	private static final String file = "mines.yml";
@@ -63,6 +67,9 @@ public class MineManager
   			refiller = new BukkitMineRefiller(this);
   			plugin.getLogger().info("Mine Manager is online! [Bukkit API]");
   		}
+  		
+  		// Set up piston event listener
+  		plugin.getServer().getPluginManager().registerEvents(this, plugin);
   		
   		// Done loading, call setup to start the refills
   		setup();
@@ -138,6 +145,26 @@ public class MineManager
 		return m.removeMaterial(type, data);
 	}
 	
+	public boolean listMaterials(CommandSender s, String id)
+	{
+		Mine m = mines.get(id);
+		if(m == null)
+			return false;
+		m.listMaterials(s);
+		return true;
+	}
+	
+	@EventHandler
+	public void onPistonExtend(BlockPistonExtendEvent event)
+	{
+		// Check if the event happened in a mine
+		for(Mine m : mines.values())
+		{
+			if(m.isInside(event.getBlock().getX(), event.getBlock().getY(), event.getBlock().getZ()))
+				event.setCancelled(true);
+		}
+	}
+	
 	private class Refill extends BukkitRunnable
 	{
 		private ConRiot plugin;
@@ -159,11 +186,11 @@ public class MineManager
 				plugin.getServer().broadcastMessage(ChatColor.GREEN + "The mines have been reset! " + ChatColor.AQUA + "(" + refiller.refill(tag) + "ms)");
 				break;
 			case 1: // Mark for refill in 20 minutes
-				plugin.getServer().getScheduler().runTaskLater(plugin, new Refill(plugin, tag, state + 1), 100);//22800); // 19 minutes = 22800
+				plugin.getServer().getScheduler().runTaskLater(plugin, new Refill(plugin, tag, state + 1), 22800); // 19 minutes = 22800
 				break;
 			case 2: // Mark for refill in 1 minutes
 				plugin.getServer().broadcastMessage(ChatColor.GOLD + "1 Minute until the mines reset!");
-				plugin.getServer().getScheduler().runTaskLater(plugin, new Refill(plugin, tag, state + 1), 200);//1100); // 55 seconds = 1100
+				plugin.getServer().getScheduler().runTaskLater(plugin, new Refill(plugin, tag, state + 1), 1100); // 55 seconds = 1100
 				break;
 			case 3: // Mark for refill in 5 seconds
 				plugin.getServer().broadcastMessage(ChatColor.GOLD + "5!");

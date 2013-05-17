@@ -18,6 +18,7 @@ public class MineCommand extends AbstractCommand
 		addSubCommand(new MineDeleteCommand(plugin), "delete");
 		addSubCommand(new MineAddCommand(plugin), "add");
 		addSubCommand(new MineRemoveCommand(plugin), "remove");
+		addSubCommand(new MineListCommand(plugin), "list");
 	}
 	
 	@Override
@@ -28,5 +29,6 @@ public class MineCommand extends AbstractCommand
 		getPlugin().getMessages().send(sender, Message.MINE_HELP_ITEM, "/mine delete ", "<id>", "Deletes the mine with the given id.");
 		getPlugin().getMessages().send(sender, Message.MINE_HELP_ITEM, "/mine add ", "<id> <type> <data> <weight>", "Adds/sets the given mine material.");
 		getPlugin().getMessages().send(sender, Message.MINE_HELP_ITEM, "/mine remove ", "<id> <type> <data>", "Removes the given mine material.");
+		getPlugin().getMessages().send(sender, Message.MINE_HELP_ITEM, "/mine list ", "<id>", "Lists the current materials for the given mine.");
 	}
 }

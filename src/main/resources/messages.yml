@@ -32,4 +32,7 @@ mine_add_success: '&7.:[&dMine&7]:. &aAdded (&2{type}&a,&2{data}&a,&2{weight}&a)
 mine_add_failure: '&7.:[&dMine&7]:. &cCould not add (&4{type}&c,&4{data}&c) to: &4{id}&c!'
 mine_remove_success: '&7.:[&dMine&7]:. &aRemoved entry for type (&2{type}&a,&2{data}&a) from: &2{id}&a!'
 mine_remove_failure: '&7.:[&dMine&7]:. &cCould not remove type (&4{type}&c,&4{data}&c) from: &4{id}&c!'
+mine_list_header: '&7.:[&dMaterials for mine: &5{id}&7]:.'
+mine_list_item: '&a - [&2{type}&a(&2{id}&a), &2{data}&a, &2{weight}&a]'
+mine_list_failure: '&7.:[&dMine&7]:. &cCould not list materials for &4{id}&c!'
 
