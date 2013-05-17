@@ -13,6 +13,6 @@ Todo list:
 - Implement cell rental - Done - [Tested] @Endain
 - Implement mining areas - Done - [Tested] @Endain
 - Implement stream commands - Done - [Tested] @Endain
-- Implement op override command - In Progress @Endain
+- Implement op override command - Done - [Tested] @Endain
 
 Feel free to add to the list guys
