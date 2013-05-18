@@ -17,6 +17,7 @@ import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.PlayerListener;
 import net.conriot.prison.mine.MineManager;
+import net.conriot.prison.shu.ShuManager;
 import net.conriot.prison.stream.StreamManager;
 import net.milkbowl.vault.permission.Permission;
 
@@ -32,6 +33,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private BlockManager blockManager;
 	@Getter private MineManager mines;
 	@Getter private StreamManager streamManager;
+	@Getter private ShuManager shuManager;
 	@Getter private Permission permission;
 	
 	@Override
@@ -82,6 +84,10 @@ public class ConRiot extends JavaPlugin
 		
 		// Load up the block manager
 		blockManager = new BlockManager(this);
+		
+		// Load up the SHU manager
+		shuManager = new ShuManager(this);
+		getCommand("shu").setExecutor(new ShuCommand(this));
 		
 		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));

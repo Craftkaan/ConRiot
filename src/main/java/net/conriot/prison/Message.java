@@ -49,14 +49,29 @@ public enum Message
 	OP_NOPE("name"),
 	OP_PERMISSION(),
 	OP_SUCCESS("name"),
+	
+	// SHU messages
+	SHU_ANNOUNCE("name", "reason"),
+	SHU_ARGS(),
+	SHU_GUARD(),
+	SHU_HELP_HEADER(),
+	SHU_HELP_ITEM("cmd", "args", "desc"),
+	SHU_MUTED(),
+	SHU_NO_RECORD("name"),
+	SHU_PERMISSION(),
+	SHU_REASONS(),
+	SHU_RECORD_HEADER("name"),
+	SHU_RECORD_ITEM("entry", "value"),
+	SHU_RELEASED(),
+	SHU_SENT("time"),
+	
+	// Stream messages
 	STREAM_ADD_SUCCESS("url"),
 	STREAM_ARG_COUNT(),
 	STREAM_COOLDOWN(),
 	STREAM_HELP_HEADER(),
 	STREAM_HELP_ITEM("cmd", "args", "desc"),
 	STREAM_ONLINE("url"),
-	
-	// Stream messages
 	STREAM_ONLINE_HEADER("name"),
 	STREAM_PERMISSION();
 	

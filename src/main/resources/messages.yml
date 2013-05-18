@@ -1,8 +1,8 @@
-# to find out the available message names and variables please check src/main/java/net/conriot/prison/Message.java
-# for example: BOUNTY_ADDED("player", "target", "added", "total")
-# first is the message name (can be any case in this file)
-# next is the variables available (player, target, added and total in this case)
-# these ARE case sensitive however, i suggest we stick to lower case always.
+# To find out the available message names and variables please check src/main/java/net/conriot/prison/Message.java
+# For example: BOUNTY_ADDED("player", "target", "added", "total")
+# Ffirst is the message name (can be any case in this file)
+# Next is the variables available (player, target, added and total in this case)
+# These ARE case sensitive however, I suggest we stick to lower case always.
 
 # BOUNTY TEXT
 bounty_added: '&5.::[&dBounty&5]::. &d{player} &5added a bounty of &d{added} &5to &d{target}. &5[&dTotal {total}&5]'
@@ -25,36 +25,51 @@ guard_off: '&6.::[&bGuard&6]::. &b{player} is now off guard duty!'
 guard_on: '&6.::[&bGuard&6]::. &b{player} is now on guard duty!'
 
 # MINE TEXT
-mine_permission: '&cYou do not have permission to use Mine commands!'
-mine_manager_offline: '&7.::[&dMine&7]::. &cMine manager is offline!'
+mine_add_failure: '&7.::[&dMine&7]::. &cCould not add (&4{type}&c,&4{data}&c) to: &4{id}&c!'
+mine_add_success: '&7.::[&dMine&7]::. &aAdded (&2{type}&a,&2{data}&a,&2{weight}&a) to: &2{id}&a!'
 mine_arg_count: '&7.::[&dMine&7]::. &cIncorrect arg count!'
-mine_help_header: '&7.::[&dMine Command Help&7]::.'
-mine_help_item: '&d{cmd}&5{args} &9{desc}'
-mine_create_success: '&7.::[&dMine&7]::. &aCreated mine: &2{id}&a!'
 mine_create_failure: '&7.::[&dMine&7]::. &cCould not create mine: &4{id}&c!'
 mine_create_selection: '&7.::[&dMine&7]::. &cPlease select a region with WorldEdit!'
-mine_delete_success: '&7.::[&dMine&7]::. &aDeleted mine: &2{id}&a!'
+mine_create_success: '&7.::[&dMine&7]::. &aCreated mine: &2{id}&a!'
 mine_delete_failure: '&7.::[&dMine&7]::. &cCould not delete mine: &4{id}&c!'
-mine_add_success: '&7.::[&dMine&7]::. &aAdded (&2{type}&a,&2{data}&a,&2{weight}&a) to: &2{id}&a!'
-mine_add_failure: '&7.::[&dMine&7]::. &cCould not add (&4{type}&c,&4{data}&c) to: &4{id}&c!'
-mine_remove_success: '&7.::[&dMine&7]::. &aRemoved entry for type (&2{type}&a,&2{data}&a) from: &2{id}&a!'
-mine_remove_failure: '&7.::[&dMine&7]::. &cCould not remove type (&4{type}&c,&4{data}&c) from: &4{id}&c!'
+mine_delete_success: '&7.::[&dMine&7]::. &aDeleted mine: &2{id}&a!'
+mine_help_header: '&7.::[&dMine Command Help&7]::.'
+mine_help_item: '&d{cmd}&5{args} &9{desc}'
+mine_list_failure: '&7.::[&dMine&7]::. &cCould not list materials for &4{id}&c!'
 mine_list_header: '&7.::[&dMaterials for mine: &5{id}&7]::.'
 mine_list_item: '&a - [&2{type}&a(&2{id}&a), &2{data}&a, &2{weight}&a]'
-mine_list_failure: '&7.::[&dMine&7]::. &cCould not list materials for &4{id}&c!'
-
-# STREAM TEXT
-stream_online_header: '&7.::[ &5{name}&d''s Stream is Online! &7]::.'
-stream_online: '&a.::[ &2{url} &a]::.'
-stream_help_header: '&7.::[&dStream Command Help&7]::.'
-stream_help_item: '&d{cmd}&5{args} &9{desc}'
-stream_permission: '&cYou do not have permission to use Stream commands!'
-stream_arg_count: '&7.::[&dStream&7]::. &cIncorrect arg count!'
-stream_add_success: '&7.::[&dStream&7]::. &aMessage set! &a[ &2{url} &a]'
-stream_cooldown: '&7.::[&dStream&7]::. &cYour 10 minute cooldown is not yet finished!'
+mine_manager_offline: '&7.::[&dMine&7]::. &cMine manager is offline!'
+mine_permission: '&cYou do not have permission to use Mine commands!'
+mine_remove_failure: '&7.::[&dMine&7]::. &cCould not remove type (&4{type}&c,&4{data}&c) from: &4{id}&c!'
+mine_remove_success: '&7.::[&dMine&7]::. &aRemoved entry for type (&2{type}&a,&2{data}&a) from: &2{id}&a!'
 
 # OP OVERRIDE TEXT
 op_args: '&7.::[&dOP&7]::. &cIncorrect arg count!'
 op_nope: '&7.::[&dOP&7]::. &cWarden abuse! &4{name} &chas been demoted!'
-op_success: '&7.::[&dOP&7]::. &2{name} &ahas been Op''ed!'
 op_permission: '&cYou do not have permission to use OP commands!'
+op_success: '&7.::[&dOP&7]::. &2{name} &ahas been Op''ed!'
+
+# SHU TEXT
+shu_announce: '&4{name} &chas been sent to the &4SHU&c! [&4{reason}&c]'
+shu_args: '&7.:[&dSHU&7]:. &cIncorrect arg count!'
+shu_guard: '&7.:[&dSHU&7]:. &cYou must be in &4GUARD &cmode to use SHU commands!'
+shu_help_header: '&7.:[&dSHU Command Help&7]:.'
+shu_help_item: '&d{cmd}&5{args} &9{desc}'
+shu_muted: '&cYou are currently muted!'
+shu_no_record: '&7.:[&dSHU&7]:. &cNo record of &4{name} &cexists!'
+shu_permission: '&cYou do not have permission to use SHU commands!'
+shu_reasons: '&9Valid SHU reasons: Spotted, Behavior, Hacking, Bug Abuse, Advertising, Banned.'
+shu_record_header: '&7.:[ &dConvict &5{name}''s &drecord &7]:.'
+shu_record_item: '&9 > &d{entry}: &5{value}'
+shu_released: '&7.:[&dSHU&7]:. &cYou have been released from the SHU!'
+shu_sent: '&7.:[&dSHU&7]:. &cYou have been sent to the SHU for &4{time} &cminutes!'
+
+# STREAM TEXT
+stream_add_success: '&7.::[&dStream&7]::. &aMessage set! &a[ &2{url} &a]'
+stream_arg_count: '&7.::[&dStream&7]::. &cIncorrect arg count!'
+stream_cooldown: '&7.::[&dStream&7]::. &cYour 10 minute cooldown is not yet finished!'
+stream_help_header: '&7.::[&dStream Command Help&7]::.'
+stream_help_item: '&d{cmd}&5{args} &9{desc}'
+stream_online: '&a.::[ &2{url} &a]::.'
+stream_online_header: '&7.::[ &5{name}&d''s Stream is Online! &7]::.'
+stream_permission: '&cYou do not have permission to use Stream commands!'

@@ -1,0 +1,15 @@
+# Configuratio setting for the SHU
+world: world
+shuLoc: '0:64:0'
+spotTime: 10
+behaviorTime: 20
+hackingTime: 60
+bugTime: 120
+advertisingTime: 240
+banTime: 5000000
+spotMax: 60
+behaviorMax: 120
+hackingMax: 360
+bugMax: 360
+advertisingMax: 360
+banMax: 5000000
