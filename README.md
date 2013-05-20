@@ -7,7 +7,7 @@ Todo list:
 - Implement bounty commands - Done, Tested @prplz
 - Implement a message manager - Done @prplz
 - Implement player data saving - @prplz
-- Implement guard commands
+- Implement guard commands - In Progress @prplz, @Endain
 - Implement warden commands
 - Implement vip management
 - Implement cell rental - Done - [Tested] @Endain
@@ -15,4 +15,7 @@ Todo list:
 - Implement stream commands - Done - [Tested] @Endain
 - Implement op override command - Done - [Tested] @Endain
 
-Feel free to add to the list guys
+Questions to resolve:
+----------------
+ - Do guards need to be on duty to use SHU commands?
+ - Do we need the ability to evict players from cells?

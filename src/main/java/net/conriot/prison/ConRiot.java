@@ -15,6 +15,7 @@ import net.conriot.prison.command.stream.StreamCommand;
 import net.conriot.prison.command.warden.OpCommand;
 import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
+import net.conriot.prison.listener.EntityListener;
 import net.conriot.prison.listener.PlayerListener;
 import net.conriot.prison.mine.MineManager;
 import net.conriot.prison.shu.ShuManager;
@@ -42,6 +43,7 @@ public class ConRiot extends JavaPlugin
 		playerData = new PlayerDataManager();
 		
 		playerData.getOrCreate("prplz").setGuardRank("Trainee"); // le test
+		playerData.getOrCreate("Endain").setGuardRank("Trainee"); // le other test
 		
 		economy = new EconomyManager();
 		if (economy.setup())
@@ -93,7 +95,6 @@ public class ConRiot extends JavaPlugin
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
 		getCommand("offduty").setExecutor(new OffDutyCommand(this));
-		getCommand("shu").setExecutor(new ShuCommand(this));
 		getCommand("spot").setExecutor(new SpotCommand(this));
 		getCommand("points").setExecutor(new PointsCommand(this));
 		
@@ -103,5 +104,6 @@ public class ConRiot extends JavaPlugin
 		// Register listeners
 		new PlayerListener(this).register();
 		new BlockListener(this).register();
+		new EntityListener(this).register();
 	}
 }

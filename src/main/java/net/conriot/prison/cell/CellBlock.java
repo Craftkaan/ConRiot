@@ -24,6 +24,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.economy.EconomyException;
 import net.conriot.prison.util.ConfigAccessor;
 
@@ -99,23 +100,21 @@ public class CellBlock implements Listener
 		ProtectedRegion r = rm.getRegion(regionId);
 		if(r == null)
 		{
-			p.sendMessage(ChatColor.RED + "No region with Id of: '" + regionId + "'!");
+			plugin.getMessages().send(p, Message.CELL_NO_REGION, regionId);
 			return false;
 		}
 		
 		// Verify the given region is part of this cell block
-		//Vector mid = Vector.getMidpoint(r.getMinimumPoint(), r.getMaximumPoint());
-		//if(!region.contains(mid.getBlockX(), mid.getBlockY(), mid.getBlockZ()))
 		if(!(region.contains(r.getMinimumPoint()) && region.contains(r.getMaximumPoint())))
 		{
-			p.sendMessage(ChatColor.RED + "Region: '" + regionId + "' is not a part of this cell block!");
+			plugin.getMessages().send(p, Message.CELL_WRONG_BLOCK, regionId);
 			return false;
 		}
 		
 		// Verify we don't already have a cell with this id
 		if(idToCell.containsKey(cellId))
 		{
-			p.sendMessage(ChatColor.RED + "Cell with an Id of: '" + cellId + "' already exists!");
+			plugin.getMessages().send(p, Message.CELL_EXISTS, cellId);
 			return false;
 		}
 		
@@ -154,7 +153,7 @@ public class CellBlock implements Listener
 			Cell c = signToCell.get(event.getBlock().getLocation());
 			if(c != null)
 			{
-				event.getPlayer().sendMessage(ChatColor.RED + " Cell '" + c.getId() + "' has been deleted!");
+				plugin.getMessages().send(event.getPlayer(), Message.CELL_DELETE, c.getId());
 				signToCell.remove(c.getSign());
 				lockToCell.remove(c.getLock());
 				idToCell.remove(c.getId());
@@ -214,7 +213,7 @@ public class CellBlock implements Listener
 				} else
 				{
 					// Someone tried to rent an owned cell, notify of ownership
-					event.getPlayer().sendMessage(ChatColor.RED + "This cell is already owned by " + c.getOwner() + "!");
+					plugin.getMessages().send(event.getPlayer(), Message.CELL_OWNED_BY, c.getOwner());
 				}
 			}
 		} else if (event.getAction() == Action.PHYSICAL && event.getClickedBlock().getType() == Material.STONE_PLATE) {

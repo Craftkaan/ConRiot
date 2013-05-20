@@ -21,8 +21,14 @@ public class StreamCommand extends AbstractCommand
 	@Override
 	public void execute(CommandSender sender, Command command, String label, String[] args, int argpos)
 	{
-		getPlugin().getMessages().send(sender, Message.STREAM_HELP_HEADER);
-		getPlugin().getMessages().send(sender, Message.STREAM_HELP_ITEM, "/stream add ", "<url>", "Sets a custom URL for announcement.");
-		getPlugin().getMessages().send(sender, Message.STREAM_HELP_ITEM, "/steam online ", "", "Announces the stream and provides a link.");
+		if(sender.hasPermission("prison.conriot.stream"))
+		{
+			getPlugin().getMessages().send(sender, Message.STREAM_HELP_HEADER);
+			getPlugin().getMessages().send(sender, Message.STREAM_HELP_ITEM, "/stream add ", "<url>", "Sets a custom URL for announcement.");
+			getPlugin().getMessages().send(sender, Message.STREAM_HELP_ITEM, "/steam online ", "", "Announces the stream and provides a link.");
+		} else
+		{
+			getPlugin().getMessages().send(sender, Message.STREAM_PERMISSION);
+		}
 	}
 }

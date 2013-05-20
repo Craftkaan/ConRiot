@@ -4,11 +4,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.command.AbstractCommand;
 
 public class CellCommand extends AbstractCommand
 {
-	public CellCommand(ConRiot plugin) {
+	public CellCommand(ConRiot plugin)
+	{
 		super(plugin);
 		setPlayerAllowed(true);
 		
@@ -18,11 +20,13 @@ public class CellCommand extends AbstractCommand
 	@Override
 	public void execute(CommandSender sender, Command command, String label, String[] args, int argpos)
 	{
-		sender.sendMessage("cell command help");
-		sender.sendMessage("/cell add [cellId] [regionId]");
-		// At some point we could add forced removal and force rental commands
-		// We could also add some sort of lookup commands to get cell owner by
-		// cell ID or cell ID's owned by a player of given name.
-		//  - Endain
+		if(sender.isOp())
+		{
+			getPlugin().getMessages().send(sender, Message.CELL_HELP_HEADER);
+			getPlugin().getMessages().send(sender, Message.CELL_HELP_ITEM, "/cell add ", "<cellId> <regionId>", "Creates a cell with the given ID using the given WorldGuard region.");
+		} else
+		{
+			getPlugin().getMessages().send(sender, Message.CELL_PERMISSION);
+		}
 	}
 }

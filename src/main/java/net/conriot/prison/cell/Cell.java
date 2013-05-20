@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.util.ConfigAccessor;
 
 public class Cell
@@ -153,7 +154,7 @@ public class Cell
 	public void start(Player p)
 	{
 		// Send a notification
-		p.sendMessage(ChatColor.GREEN + "You have rented cell " + id + "! " + ChatColor.RED + " (-$" + cb.getPrice() + ")");
+		plugin.getMessages().send(p, Message.CELL_RENTED, id, cb.getPrice());
 		
 		// Assign the cell to the player
 		owner = p.getName();
@@ -172,7 +173,7 @@ public class Cell
 		{
 			Player p = plugin.getServer().getPlayer(owner);
 			if(p != null)
-				p.sendMessage(ChatColor.RED + "Your rental of cell " + id + " has expired!");
+				plugin.getMessages().send(p, Message.CELL_EXPIRED, id);
 		}
 		
 		// Terminate the lease
@@ -187,7 +188,7 @@ public class Cell
 	public void extend(Player p)
 	{
 		// Send a notification
-		p.sendMessage(ChatColor.GOLD + "You have extended your lease duration!" + ChatColor.RED + " (-$" + cb.getPrice() + ")");
+		plugin.getMessages().send(p, Message.CELL_EXTENDED, id, cb.getPrice());
 		// Increase the lease duration
 		expiration = expiration + 43200000; // Add 12 hours
 		needsUpdate = true;

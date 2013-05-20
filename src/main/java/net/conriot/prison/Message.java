@@ -18,6 +18,24 @@ public enum Message
 	BOUNTY_TOP_HEADER(),
 	BOUNTY_TOP_ITEM("num", "name", "bounty"),
 	
+	// Cell messages
+	CELL_ADD_FAILURE("cell"),
+	CELL_ADD_SUCCESS("cell"),
+	CELL_ARG_COUNT(),
+	CELL_DELETE("cell"),
+	CELL_EXISTS("cell"),
+	CELL_EXPIRED("cell"),
+	CELL_EXTENDED("cell", "cost"),
+	CELL_HELP_HEADER(),
+	CELL_HELP_ITEM("cmd", "args", "desc"),
+	CELL_LOOK_SIGN(),
+	CELL_NO_BLOCK(),
+	CELL_NO_REGION(),
+	CELL_OWNED_BY("player"),
+	CELL_PERMISSION(),
+	CELL_RENTED("cell", "cost"),
+	CELL_WRONG_BLOCK("region"),
+	
 	// Guard messages
 	GUARD_ALREADY_ON(),
 	GUARD_NOT_GUARD(),
@@ -53,7 +71,6 @@ public enum Message
 	// SHU messages
 	SHU_ANNOUNCE("name", "reason"),
 	SHU_ARGS(),
-	SHU_GUARD(),
 	SHU_HELP_HEADER(),
 	SHU_HELP_ITEM("cmd", "args", "desc"),
 	SHU_MUTED(),
@@ -64,6 +81,16 @@ public enum Message
 	SHU_RECORD_ITEM("entry", "value"),
 	SHU_RELEASED(),
 	SHU_SENT("time"),
+	
+	// Spot messages
+	SPOT_ANNOUNCE("guard", "player", "reason"),
+	SPOT_ARGS(),
+	SPOT_COUNTDOWN("count"),
+	SPOT_HELP_HEADER(),
+	SPOT_HELP_ITEM("cmd", "args", "desc"),
+	SPOT_INVALID("name"),
+	SPOT_PERMISSION(),
+	SPOT_WARNING("reason"),
 	
 	// Stream messages
 	STREAM_ADD_SUCCESS("url"),

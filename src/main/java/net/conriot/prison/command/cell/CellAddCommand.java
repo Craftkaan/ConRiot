@@ -1,6 +1,5 @@
 package net.conriot.prison.command.cell;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.conriot.prison.ConRiot;
+import net.conriot.prison.Message;
 import net.conriot.prison.cell.CellBlock;
 import net.conriot.prison.command.AbstractCommand;
 
@@ -31,7 +31,7 @@ public class CellAddCommand extends AbstractCommand
 			// Verify we have sufficient args
 			if(args.length != 3)
 			{
-				sender.sendMessage(ChatColor.RED + "Improper number of arguments!");
+				getPlugin().getMessages().send(sender, Message.CELL_ARG_COUNT);
 				return;
 			}
 			
@@ -42,7 +42,7 @@ public class CellAddCommand extends AbstractCommand
 			// Verify it is a sign
 			if(b.getType() != Material.WALL_SIGN)
 			{
-				sender.sendMessage(ChatColor.RED + "You must be looking at a sign to add a cell!");
+				getPlugin().getMessages().send(sender, Message.CELL_LOOK_SIGN);
 				return;
 			}
 			
@@ -50,7 +50,7 @@ public class CellAddCommand extends AbstractCommand
 			CellBlock cb = getPlugin().getCells().getCellBlock(b.getLocation());
 			if(cb == null)
 			{
-				sender.sendMessage(ChatColor.RED + "Sign is not in a valid cell block!");
+				getPlugin().getMessages().send(sender, Message.CELL_NO_BLOCK);
 				return;
 			}
 			
@@ -71,16 +71,17 @@ public class CellAddCommand extends AbstractCommand
 				lock = b.getLocation().add(0, -1, 1);
 				break;
 			default:
-				sender.sendMessage(ChatColor.RED + "Error determining sign's cardinal direction!");
 				return;
 			}
 			
 			// Attempt to add the cell
 			if(cb.addCell(args[2], args[1], lock, b.getLocation(), p))
-				sender.sendMessage(ChatColor.GREEN + "You have successfully added cell: " + args[1] + "!");
+				getPlugin().getMessages().send(sender, Message.CELL_ADD_SUCCESS, args[1]);
+			else
+				getPlugin().getMessages().send(sender, Message.CELL_ADD_FAILURE, args[1]);
 		} else
 		{
-			sender.sendMessage(ChatColor.RED + "You do not have permission to add cells!");
+			getPlugin().getMessages().send(sender, Message.CELL_PERMISSION);
 		}
 	}
 }
