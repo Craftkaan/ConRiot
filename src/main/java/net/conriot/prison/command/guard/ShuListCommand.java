@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import net.conriot.prison.ConRiot;
 import net.conriot.prison.Message;
 import net.conriot.prison.command.AbstractCommand;
+import net.conriot.prison.util.PlayerUtils;
 
 public class ShuListCommand extends AbstractCommand
 {
@@ -24,7 +25,7 @@ public class ShuListCommand extends AbstractCommand
 		{
 			if(args.length == 2)
 			{
-				String name = getPlugin().getShuManager().resolveName(args[1]);
+				String name = PlayerUtils.resolveName(args[1]);
 				if(name != null)
 				{
 					getPlugin().getShuManager().showRecord(sender, name);

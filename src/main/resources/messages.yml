@@ -32,6 +32,7 @@ cell_no_block: '&7.::[&dCell&7]::. &cSign is not in a valid cell block region!'
 cell_no_region: '&7.::[&dCell&7]::. &cNo region called ''&4{region}&c'' exists!'
 cell_owned_by: '&cCell already owned by ''&4{player}&c''!'
 cell_permission: '&cYou do not have permission to use Cell commands!'
+cell_region_used: '&7.::[&dCell&7]::. &cThe region ''&4{region}&c'' is already in use!'
 cell_rented: '&aYou have rented cell ''&2{cell}&a''! &f(&c-$&4{cost}&f)'
 cell_wrong_block: '&7.::[&dCell&7]::. &cRegion ''&4{region}&c'' is not in the correct cell block!'
 
@@ -82,7 +83,7 @@ shu_released: '&7.::[&dSHU&7]::. &cYou have been released from the SHU!'
 shu_sent: '&7.::[&dSHU&7]::. &cYou have been sent to the SHU for &4{time} &cminutes!'
 
 # SPOT TEXT
-spot_announce: '&4.::[ &fWARNING &4]::. &f{guard} &4has spotted &f{player} &4 with &f{reason}&4!'
+spot_announce: '&4.::[ &fWARNING &4]::. &f{guard} &4has spotted &f{player} &4with &f{reason}&4!'
 spot_args: '&7.::[&dSpot&7]::. &cIncorrect arg count!'
 spot_countdown: '&4.::[ &fWARNING &4]::. {count}!'
 spot_help_header: '&7.::[&dSpot Command Help&7]::.'

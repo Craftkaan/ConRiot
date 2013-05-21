@@ -38,6 +38,7 @@ public class CellBlock implements Listener
 	private HashMap<Location, Cell> lockToCell;
 	private HashMap<Location, Cell> signToCell;
 	private HashMap<String, Cell> idToCell;
+	private HashMap<String, Cell> regionToCell;
 	@Getter private int price;
 	@Getter private boolean valid;
 	
@@ -49,6 +50,7 @@ public class CellBlock implements Listener
 		lockToCell = new HashMap<Location, Cell>();
 		signToCell = new HashMap<Location, Cell>();
 		idToCell = new HashMap<String, Cell>();
+		regionToCell = new HashMap<String, Cell>();
 		
 		// Get the file for the block data
 		blockFile = new ConfigAccessor(plugin, "cells/" + file + ".yml");
@@ -70,12 +72,13 @@ public class CellBlock implements Listener
 		List<String> cellList = blockFile.getConfig().getStringList("list");
 		for(String entry : cellList)
 		{
-			Cell c = new Cell(plugin, this, rm, blockFile, world, entry);
+			Cell c = new Cell(plugin, this, rm, blockFile, world, entry, false); // False because existing cell
 			if(c.isValid())
 			{
 				lockToCell.put(c.getLock(), c);
 				signToCell.put(c.getSign(), c);
 				idToCell.put(c.getId(), c);
+				regionToCell.put(c.getRegion().getId(), c);
 			}
 		}
 	}
@@ -111,6 +114,13 @@ public class CellBlock implements Listener
 			return false;
 		}
 		
+		// Verify the given region is not already in use
+		if(regionToCell.containsKey(r.getId()))
+		{
+			plugin.getMessages().send(p, Message.CELL_REGION_USED, regionId);
+			return false;
+		}
+		
 		// Verify we don't already have a cell with this id
 		if(idToCell.containsKey(cellId))
 		{
@@ -119,11 +129,12 @@ public class CellBlock implements Listener
 		}
 		
 		// Create and add the new cell
-		Cell c = new Cell(plugin, this, rm, blockFile, world, cellId);
+		Cell c = new Cell(plugin, this, rm, blockFile, world, cellId, true); // True because new cell
 		c.add(r, cellId, lock, sign);
 		lockToCell.put(c.getLock(), c);
 		signToCell.put(c.getSign(), c);
 		idToCell.put(c.getId(), c);
+		regionToCell.put(c.getRegion().getId(), c);
 		return true;
 	}
 	
@@ -157,6 +168,7 @@ public class CellBlock implements Listener
 				signToCell.remove(c.getSign());
 				lockToCell.remove(c.getLock());
 				idToCell.remove(c.getId());
+				regionToCell.remove(c.getRegion().getId());
 				c.delete();
 			}
 		}

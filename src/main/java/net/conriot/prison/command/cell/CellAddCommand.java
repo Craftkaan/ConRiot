@@ -25,7 +25,6 @@ public class CellAddCommand extends AbstractCommand
 	{
 		// cell 		add 		<cellId>	<regionId>
 		// command		args[0]		args[1]		args[2]
-		
 		if(sender.isOp()) // OP Check until I know if we need to deal with perms
 		{
 			// Verify we have sufficient args

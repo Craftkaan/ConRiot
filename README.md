@@ -17,5 +17,4 @@ Todo list:
 
 Questions to resolve:
 ----------------
- - Do guards need to be on duty to use SHU commands?
  - Do we need the ability to evict players from cells?

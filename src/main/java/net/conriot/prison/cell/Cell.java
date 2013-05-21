@@ -25,8 +25,8 @@ public class Cell
 {
 	private ConRiot plugin;
 	private ConfigAccessor blockFile;
-	private ProtectedRegion region;
 	private CellBlock cb;
+	@Getter private ProtectedRegion region;
 	@Getter private String id;
 	@Getter private String owner;
 	@Getter private long expiration;
@@ -36,7 +36,7 @@ public class Cell
 	private boolean needsUpdate;
 	private BukkitTask expireTask;
 	
-	public Cell(ConRiot plugin, CellBlock cb, RegionManager rm, ConfigAccessor blockFile, World world, String id)
+	public Cell(ConRiot plugin, CellBlock cb, RegionManager rm, ConfigAccessor blockFile, World world, String id, boolean isNew)
 	{
 		this.plugin = plugin;
 		this.blockFile = blockFile;
@@ -44,35 +44,38 @@ public class Cell
 		this.id = id;
 		this.needsUpdate = true;
 		
-		// Verify we have enough info
-		if(!(valid = hasNeededKeys()))
+		if(!isNew)
 		{
-			plugin.getLogger().warning("Cell '" + id + "' didn't have sufficient keys!");
-			return; // Log a nice warning so we know what's up
-		}
-		
-		// Load the cell data
-		region = rm.getRegion(blockFile.getConfig().getString("cell." + id + ".region"));
-		String lockData[] = blockFile.getConfig().getString("cell." + id + ".lock").split(":");
-		lock = new Location(world, Integer.parseInt(lockData[0]), Integer.parseInt(lockData[1]), Integer.parseInt(lockData[2]));
-		String signData[] = blockFile.getConfig().getString("cell." + id + ".sign").split(":");
-		sign = new Location(world, Integer.parseInt(signData[0]), Integer.parseInt(signData[1]), Integer.parseInt(signData[2]));
-		
-		// Load the owner data if any
-		if(blockFile.getConfig().contains("cell." + id + ".owner"))
-			owner = blockFile.getConfig().getString("cell." + id + ".owner");
-		if(blockFile.getConfig().contains("cell." + id + ".expiration"))
-			expiration = blockFile.getConfig().getLong("cell." + id + ".expiration");
-		else
-			expiration = 0;
-		
-		// Remove cell owner or set up expiration task if needed
-		if(owner != null)
-		{
-			if(expiration < System.currentTimeMillis())
-				end(); // End the current lease
+			// Verify we have enough info
+			if(!(valid = hasNeededKeys()))
+			{
+				plugin.getLogger().warning("Cell '" + id + "' didn't have sufficient keys!");
+				return; // Log a nice warning so we know what's up
+			}
+			
+			// Load the cell data
+			region = rm.getRegion(blockFile.getConfig().getString("cell." + id + ".region"));
+			String lockData[] = blockFile.getConfig().getString("cell." + id + ".lock").split(":");
+			lock = new Location(world, Integer.parseInt(lockData[0]), Integer.parseInt(lockData[1]), Integer.parseInt(lockData[2]));
+			String signData[] = blockFile.getConfig().getString("cell." + id + ".sign").split(":");
+			sign = new Location(world, Integer.parseInt(signData[0]), Integer.parseInt(signData[1]), Integer.parseInt(signData[2]));
+			
+			// Load the owner data if any
+			if(blockFile.getConfig().contains("cell." + id + ".owner"))
+				owner = blockFile.getConfig().getString("cell." + id + ".owner");
+			if(blockFile.getConfig().contains("cell." + id + ".expiration"))
+				expiration = blockFile.getConfig().getLong("cell." + id + ".expiration");
 			else
-				schedule(); // Schedule the end of current lease
+				expiration = 0;
+			
+			// Remove cell owner or set up expiration task if needed
+			if(owner != null)
+			{
+				if(expiration < System.currentTimeMillis())
+					end(); // End the current lease
+				else
+					schedule(); // Schedule the end of current lease
+			}
 		}
 	}
 	

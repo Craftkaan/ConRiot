@@ -101,19 +101,6 @@ public class ShuManager implements Listener
 			event.setRespawnLocation(config.getShuLoc());
 	}
 	
-	public String resolveName(String name)
-	{
-		// Check if the player names has ever existed
-		// and if so return correctly capitalized name.
-		Player p = Bukkit.getServer().getPlayer(name);
-		if(p != null)
-			return p.getName();
-		OfflinePlayer op = Bukkit.getServer().getOfflinePlayer(name);
-		if(op.hasPlayedBefore())
-			return op.getName();
-		return null;
-	}
-	
 	public void onSpot(String name)
 	{
 		// Get the SHU record

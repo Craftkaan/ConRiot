@@ -33,6 +33,7 @@ public enum Message
 	CELL_NO_REGION(),
 	CELL_OWNED_BY("player"),
 	CELL_PERMISSION(),
+	CELL_REGION_USED("region"),
 	CELL_RENTED("cell", "cost"),
 	CELL_WRONG_BLOCK("region"),
 	

@@ -8,6 +8,7 @@ import net.conriot.prison.ConRiot;
 import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
+import net.conriot.prison.util.PlayerUtils;
 
 public class ShuSendCommand extends AbstractCommand
 {
@@ -31,7 +32,7 @@ public class ShuSendCommand extends AbstractCommand
 				{
 					if(args.length <= 3)
 					{
-						String name = getPlugin().getShuManager().resolveName(args[1]);
+						String name = PlayerUtils.resolveName(args[1]);
 						if(name != null)
 						{
 							if(args[2].equalsIgnoreCase("spotted") || args[2].equalsIgnoreCase("spot") ||
