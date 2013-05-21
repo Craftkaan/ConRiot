@@ -20,7 +20,8 @@ commands:
     description: Put yourself on guard duty
   offduty:
     description: Take yourself off guard duty
-  shu: {}
+  shu:
+    description: Send players to the SHU or view records
   spot:
     description: Spot a player doing something wrong
   points: {}
@@ -32,3 +33,7 @@ commands:
     description: Stream management commands
   op:
     description: Overwritten OP command
+  warden:
+    description: Warden-only commands
+  confirm:
+    description: Confirm command for Guards/Wardens

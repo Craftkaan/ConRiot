@@ -12,7 +12,9 @@ import net.conriot.prison.command.guard.ShuCommand;
 import net.conriot.prison.command.guard.SpotCommand;
 import net.conriot.prison.command.mine.MineCommand;
 import net.conriot.prison.command.stream.StreamCommand;
+import net.conriot.prison.command.warden.ConfirmCommand;
 import net.conriot.prison.command.warden.OpCommand;
+import net.conriot.prison.command.warden.WardenCommand;
 import net.conriot.prison.economy.EconomyManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.EntityListener;
@@ -20,6 +22,7 @@ import net.conriot.prison.listener.PlayerListener;
 import net.conriot.prison.mine.MineManager;
 import net.conriot.prison.shu.ShuManager;
 import net.conriot.prison.stream.StreamManager;
+import net.conriot.prison.warden.UpdateManager;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -35,6 +38,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private MineManager mines;
 	@Getter private StreamManager streamManager;
 	@Getter private ShuManager shuManager;
+	@Getter private UpdateManager updateManager;
 	@Getter private Permission permission;
 	
 	@Override
@@ -91,12 +95,17 @@ public class ConRiot extends JavaPlugin
 		shuManager = new ShuManager(this);
 		getCommand("shu").setExecutor(new ShuCommand(this));
 		
+		// Load up the updates manager
+		updateManager = new UpdateManager(this);
+		getCommand("confirm").setExecutor(new ConfirmCommand(this));
+		
 		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
 		getCommand("offduty").setExecutor(new OffDutyCommand(this));
 		getCommand("spot").setExecutor(new SpotCommand(this));
 		getCommand("points").setExecutor(new PointsCommand(this));
+		getCommand("warden").setExecutor(new WardenCommand(this));
 		
 		// Register the op override command
 		getCommand("op").setExecutor(new OpCommand(this));

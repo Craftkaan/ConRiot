@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.conriot.prison.util.PlayerUtils;
+
 import org.bukkit.entity.Player;
 
 public class PlayerDataManager
@@ -17,17 +19,17 @@ public class PlayerDataManager
 	
 	public PlayerData get(Player player)
 	{
-		return dataMap.get(player.getName().toLowerCase());
+		return dataMap.get(player.getName());
 	}
 	
 	public PlayerData get(String name)
 	{
-		return dataMap.get(name.toLowerCase());
+		return dataMap.get(name);
 	}
 	
 	public PlayerData getOrCreate(Player player)
 	{
-		String name = player.getName().toLowerCase();
+		String name = PlayerUtils.resolveName(player.getName());
 		PlayerData data = dataMap.get(name);
 		if (data == null)
 		{
@@ -39,7 +41,7 @@ public class PlayerDataManager
 	
 	public PlayerData getOrCreate(String name)
 	{	
-		name = name.toLowerCase();
+		name = PlayerUtils.resolveName(name);
 		PlayerData data = dataMap.get(name);
 		if (data == null)
 		{
@@ -54,5 +56,5 @@ public class PlayerDataManager
 		return dataMap.values();
 	}
 	
-	// TODO: saver/loader @prplz
+	// TODO: saver/loader @Endain
 }

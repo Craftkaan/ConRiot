@@ -101,7 +101,18 @@ public enum Message
 	STREAM_HELP_ITEM("cmd", "args", "desc"),
 	STREAM_ONLINE("url"),
 	STREAM_ONLINE_HEADER("name"),
-	STREAM_PERMISSION();
+	STREAM_PERMISSION(),
+	
+	// Warden messages
+	WARDEN_ARG_COUNT(),
+	WARDEN_CONFIRMED(),
+	WARDEN_HELP_HEADER(),
+	WARDEN_HELP_ITEM("cmd", "args", "desc"),
+	WARDEN_PERMISSION(),
+	WARDEN_UPDATE_ADD("message"),
+	WARDEN_UPDATE_CONFIRM(),
+	WARDEN_UPDATE_HEADER("date"),
+	WARDEN_UPDATE_MESSAGE("message");
 	
 	@Getter private String[] vars;
 	
