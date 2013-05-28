@@ -112,7 +112,13 @@ public enum Message
 	WARDEN_UPDATE_ADD("message"),
 	WARDEN_UPDATE_CONFIRM(),
 	WARDEN_UPDATE_HEADER("date"),
-	WARDEN_UPDATE_MESSAGE("message");
+	WARDEN_UPDATE_MESSAGE("message"),
+	WARDEN_VIP_INVALID_NAME("name"),
+	WARDEN_VIP_INVALID_RANK(),
+	WARDEN_VIP_PENDING("name"),
+	WARDEN_VIP_PURCHASED("name", "rank"),
+	WARDEN_VIP_UPGRADED("rank"),
+	WARDEN_VIP_UPGRADED_WITH_EXPIRE("rank", "days");
 	
 	@Getter private String[] vars;
 	

@@ -23,6 +23,7 @@ import net.conriot.prison.mine.MineManager;
 import net.conriot.prison.shu.ShuManager;
 import net.conriot.prison.stream.StreamManager;
 import net.conriot.prison.warden.UpdateManager;
+import net.conriot.prison.warden.VipManager;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -39,6 +40,7 @@ public class ConRiot extends JavaPlugin
 	@Getter private StreamManager streamManager;
 	@Getter private ShuManager shuManager;
 	@Getter private UpdateManager updateManager;
+	@Getter private VipManager vipManager;
 	@Getter private Permission permission;
 	
 	@Override
@@ -98,6 +100,9 @@ public class ConRiot extends JavaPlugin
 		// Load up the updates manager
 		updateManager = new UpdateManager(this);
 		getCommand("confirm").setExecutor(new ConfirmCommand(this));
+		
+		// Load up the updates manager
+		vipManager = new VipManager(this);
 		
 		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));

@@ -14,6 +14,7 @@ public class WardenUpdateCommand extends AbstractCommand implements Listener
 	{
 		super(plugin);
 		setPlayerAllowed(true);
+		setConsoleAllowed(true);
 	}
 
 	@Override

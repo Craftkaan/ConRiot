@@ -12,7 +12,8 @@ public class WardenCommand extends AbstractCommand
 	public WardenCommand(ConRiot plugin)
 	{
 		super(plugin);
-		allowAll();
+		setPlayerAllowed(true);
+		setConsoleAllowed(true);
 		
 		addSubCommand(new WardenAddCommand(plugin), "add");
 		addSubCommand(new WardenDelCommand(plugin), "del");
@@ -29,6 +30,7 @@ public class WardenCommand extends AbstractCommand
 		{
 			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_HEADER);
 			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_ITEM, "/warden update ", "<update, ... ,text!>", "Sends an announcment to all wardens, guards and trainees. This update must be confirmed as read.");
+			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_ITEM, "/warden addvip ", "<player> <rank>", "Upgrade the specified player to the given VIP rank. The update will be applied when they next login if they are not online.");
 			// TODO - Other sub commands
 		} else
 		{
