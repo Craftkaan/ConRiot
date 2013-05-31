@@ -2,6 +2,7 @@ package net.conriot.prison.warden;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class VipManager implements Listener {
 	ConfigAccessor vipData;
 	ConfigAccessor pendingVipData;
 	HashMap<String, Vip> vips;
-	HashMap<String, Integer> pendingVips;
+	HashSet<String> pendingVips;
 	
 	public VipManager(ConRiot plugin)
 	{
@@ -44,10 +45,10 @@ public class VipManager implements Listener {
 		pendingVipData = new ConfigAccessor(plugin, "pendingVip.yml");
 		if(!(new File(plugin.getDataFolder(), "pendingVip.yml")).exists())
 			pendingVipData.saveDefaultConfig();
-		pendingVips = new HashMap<String, Integer>();
+		pendingVips = new HashSet<String>();
 		for(String s : pendingVipData.getConfig().getKeys(false))
 		{
-			pendingVips.put(s, pendingVipData.getConfig().getInt(s));
+			pendingVips.add(s);
 		}
 		
 		// Register event listeners
@@ -56,6 +57,9 @@ public class VipManager implements Listener {
 	
 	public boolean addVip(String name, int rank)
 	{
+		// Check if a purchase has been made before, if so add donation instead
+		if(vips.containsKey(name))
+			return addDonation(name, getAmountFromRank(rank));
 		// Announce purchase
 		switch(rank)
 		{
@@ -85,8 +89,8 @@ public class VipManager implements Listener {
 			return true;
 		} else
 		{
-			pendingVips.put(name, rank);
-			pendingVipData.getConfig().set(name, rank);
+			pendingVips.add(name);
+			pendingVipData.getConfig().set(name + ".rank", rank);
 			pendingVipData.saveConfig();
 			return false;
 		}
@@ -94,40 +98,93 @@ public class VipManager implements Listener {
 	
 	public boolean addDonation(String name, int amount)
 	{
+		// Find the total time
+		int total = amount;
+		if(vips.containsKey(name))
+			total += vips.get(name).getDonated();
 		// Announce donation
+		int rank = getRankFromAmount(total);
 		switch(rank)
 		{
 		case 1:
-			plugin.getMessages().broadcast(Message.WARDEN_VIP_PURCHASED, name, "Rat");
+			plugin.getMessages().broadcast(Message.WARDEN_VIP_ADDED, name, amount, "Rat");
 			break;
 		case 2:
-			plugin.getMessages().broadcast(Message.WARDEN_VIP_PURCHASED, name, "Dealer");
+			plugin.getMessages().broadcast(Message.WARDEN_VIP_ADDED, name, amount, "Dealer");
 			break;
 		case 3:
-			plugin.getMessages().broadcast(Message.WARDEN_VIP_PURCHASED, name, "Gang");
+			plugin.getMessages().broadcast(Message.WARDEN_VIP_ADDED, name, amount, "Gang");
 			break;
 		case 4:
-			plugin.getMessages().broadcast(Message.WARDEN_VIP_PURCHASED, name, "Leader");
+			plugin.getMessages().broadcast(Message.WARDEN_VIP_ADDED, name, amount, "Leader");
 			break;
 		case 5:
-			plugin.getMessages().broadcast(Message.WARDEN_VIP_PURCHASED, name, "Mafia");
+			plugin.getMessages().broadcast(Message.WARDEN_VIP_ADDED, name, amount, "Mafia");
 			break;
 		}
 		// Figure out if we can add now or must queue
 		Player p = PlayerUtils.resolvePlayerOnline(name);
 		if(p != null)
 		{
-			Vip v = new Vip(plugin, vipData);
-			v.create(name, rank);
-			v.apply(p);
+			if(vips.containsKey(name))
+			{
+				Vip v = vips.get(name);
+				v.add(name, amount, rank);
+				v.apply(p);
+			} else
+			{
+				Vip v = new Vip(plugin, vipData);
+				vips.put(name, v);
+				v.create(name, rank);
+				v.apply(p);
+			}
 			return true;
 		} else
 		{
-			pendingVips.put(name, rank);
-			pendingVipData.getConfig().set(name, rank);
+			pendingVips.add(name);
+			pendingVipData.getConfig().set(name + ".donation", amount);
 			pendingVipData.saveConfig();
 			return false;
 		}
+	}
+	
+	public Vip getVipRecord(String name)
+	{
+		name = PlayerUtils.resolveName(name);
+		return vips.get(name);
+	}
+	
+	private int getRankFromAmount(int amount)
+	{
+		if(amount >= vipData.getConfig().getInt("vip-costs.mafia"))
+			return 5;
+		else if(amount >= vipData.getConfig().getInt("vip-costs.leader"))
+			return 4;
+		else if(amount >= vipData.getConfig().getInt("vip-costs.gang"))
+			return 3;
+		else if(amount >= vipData.getConfig().getInt("vip-costs.dealer"))
+			return 2;
+		else if(amount >= vipData.getConfig().getInt("vip-costs.rat"))
+			return 1;
+		return 0;
+	}
+	
+	private int getAmountFromRank(int rank)
+	{
+		switch(rank)
+		{
+		case 1:
+			return vipData.getConfig().getInt("vip-costs.rat");
+		case 2:
+			return vipData.getConfig().getInt("vip-costs.dealer");
+		case 3:
+			return vipData.getConfig().getInt("vip-costs.gang");
+		case 4:
+			return vipData.getConfig().getInt("vip-costs.leader");
+		case 5:
+			return vipData.getConfig().getInt("vip-costs.mafia");
+		}
+		return 0;
 	}
 	
 	@EventHandler (priority = EventPriority.MONITOR)
@@ -143,21 +200,46 @@ public class VipManager implements Listener {
 			}
 		}
 		// Check for pending VIP status
-		if(pendingVips.containsKey(event.getPlayer().getName()))
+		if(pendingVips.contains(event.getPlayer().getName()))
 		{
-			Vip vnew = new Vip(plugin, vipData);
-			vnew.create(event.getPlayer().getName(), pendingVips.get(event.getPlayer().getName()));
-			vnew.apply(event.getPlayer());
-			vips.put(event.getPlayer().getName(), vnew);
+			if(pendingVipData.getConfig().contains(event.getPlayer().getName() + ".donation"))
+			{
+				if(v != null)
+				{
+					v.add(event.getPlayer().getName(), pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".donation"), getRankFromAmount(v.getDonated() + pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".donation")));
+					v.apply(event.getPlayer());
+				} else
+				{
+					v = new Vip(plugin, vipData);
+					v.add(event.getPlayer().getName(), pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".donation"), getRankFromAmount(v.getDonated() + pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".donation")));
+					v.apply(event.getPlayer());
+					vips.put(event.getPlayer().getName(), v);
+				}
+			} else
+			{
+				if(v != null)
+				{
+					v.add(event.getPlayer().getName(), getAmountFromRank(pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".rank")), pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".rank"));
+					v.apply(event.getPlayer());
+				} else
+				{
+					v = new Vip(plugin, vipData);
+					v.create(event.getPlayer().getName(), pendingVipData.getConfig().getInt(event.getPlayer().getName() + ".rank"));
+					v.apply(event.getPlayer());
+					vips.put(event.getPlayer().getName(), v);
+				}
+			}
 			pendingVips.remove(event.getPlayer().getName());
+			pendingVipData.getConfig().set(event.getPlayer().getName(), null);
+			pendingVipData.saveConfig();
 			// Send personal message
-			switch(vnew.getRank())
+			switch(v.getRank())
 			{
 			case 1:
-				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED_WITH_EXPIRE, "Rat", vipData.getConfig().getInt("vip-settings.rat"));
+				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED_WITH_EXPIRE, "Rat", vipData.getConfig().getInt("vip-days.rat"));
 				break;
 			case 2:
-				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED_WITH_EXPIRE, "Dealer", vipData.getConfig().getInt("vip-settings.dealer"));
+				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED_WITH_EXPIRE, "Dealer", vipData.getConfig().getInt("vip-days.dealer"));
 				break;
 			case 3:
 				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED, "Gang");
@@ -169,8 +251,6 @@ public class VipManager implements Listener {
 				plugin.getMessages().send(event.getPlayer(), Message.WARDEN_VIP_UPGRADED, "Mafia");
 				break;
 			}
-			pendingVipData.getConfig().set(event.getPlayer().getName(), null);
-			pendingVipData.saveConfig();
 		}
 	}
 }

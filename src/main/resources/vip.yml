@@ -1,4 +1,10 @@
 # This file contains data for all current VIP's
-vip-settings:
+vip-days:
   rat: 7
   dealer: 31
+vip-costs:
+  rat: 6
+  dealer: 15
+  gang: 50
+  leader: 75
+  mafia: 100

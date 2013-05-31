@@ -48,56 +48,56 @@ public class Vip
 		switch(rank)
 		{
 		case 1:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank1");
+			donated += vipData.getConfig().getInt("vip-costs.rat");
 			expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-settings.rat") * 86400000);
 			break;
 		case 2:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank2");
+			donated += vipData.getConfig().getInt("vip-costs.dealer");
 			expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-settings.dealer") * 86400000);
 			break;
 		case 3:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank3");
+			donated += vipData.getConfig().getInt("vip-costs.gang");
 			expiration = 0;
 			break;
 		case 4:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank4");
+			donated += vipData.getConfig().getInt("vip-costs.leader");
 			expiration = 0;
 			break;
 		case 5:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank5");
+			donated += vipData.getConfig().getInt("vip-costs.mafia");
 			expiration = 0;
 			break;
 		}
 		save();
 	}
 	
-	public void add(int rank)
+	public void add(String name, int amount, int rank)
 	{
+		this.name = name;
 		this.rank = rank;
+		this.donated += amount;
 		switch(rank)
 		{
 		case 1:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank1");
 			if(expiration == 0)
-				expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-settings.rat") * 86400000);
+				expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-days.rat") * 86400000);
 			else
-				expiration += (vipData.getConfig().getInt("vip-settings.rat") * 86400000);
+				expiration += (vipData.getConfig().getInt("vip-days.rat") * 86400000);
 			break;
 		case 2:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank2");
 			if(expiration == 0)
-				expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-settings.dealer") * 86400000);
+				expiration = System.currentTimeMillis() + (vipData.getConfig().getInt("vip-days.dealer") * 86400000);
 			else
-				expiration += (vipData.getConfig().getInt("vip-settings.dealer") * 86400000);
+				expiration += (vipData.getConfig().getInt("vip-days.dealer") * 86400000);
 			break;
 		case 3:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank3");
+			expiration = 0;
 			break;
 		case 4:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank4");
+			expiration = 0;
 			break;
 		case 5:
-			donated += vipData.getConfig().getInt("vip-settings.price.rank5");
+			expiration = 0;
 			break;
 		}
 		save();

@@ -13,6 +13,7 @@ import net.conriot.prison.command.guard.SpotCommand;
 import net.conriot.prison.command.mine.MineCommand;
 import net.conriot.prison.command.stream.StreamCommand;
 import net.conriot.prison.command.warden.ConfirmCommand;
+import net.conriot.prison.command.warden.ExpirationCommand;
 import net.conriot.prison.command.warden.OpCommand;
 import net.conriot.prison.command.warden.WardenCommand;
 import net.conriot.prison.economy.EconomyManager;
@@ -103,6 +104,7 @@ public class ConRiot extends JavaPlugin
 		
 		// Load up the updates manager
 		vipManager = new VipManager(this);
+		getCommand("expiration").setExecutor(new ExpirationCommand(this));
 		
 		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));

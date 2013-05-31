@@ -20,6 +20,7 @@ public class WardenCommand extends AbstractCommand
 		addSubCommand(new WardenAddPointsCommand(plugin), "addpoints");
 		addSubCommand(new WardenDelPointsCommand(plugin), "delpoints");
 		addSubCommand(new WardenAddVipCommand(plugin), "addvip");
+		addSubCommand(new WardenUpdateVipCommand(plugin), "updatevip");
 		addSubCommand(new WardenUpdateCommand(plugin), "update");
 	}
 
@@ -31,6 +32,7 @@ public class WardenCommand extends AbstractCommand
 			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_HEADER);
 			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_ITEM, "/warden update ", "<update, ... ,text!>", "Sends an announcment to all wardens, guards and trainees. This update must be confirmed as read.");
 			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_ITEM, "/warden addvip ", "<player> <rank>", "Upgrade the specified player to the given VIP rank. The update will be applied when they next login if they are not online.");
+			getPlugin().getMessages().send(sender, Message.WARDEN_HELP_ITEM, "/warden updatevip ", "<player> <amount>", "Add the given amount the the player's donation history. This may trigger an upgrade to their VIP status depending on their current rank and amount. The update will be applied when they next login if they are not online.");
 			// TODO - Other sub commands
 		} else
 		{
