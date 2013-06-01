@@ -78,7 +78,6 @@ public class SpotCommand extends AbstractCommand
 			this.guard = guard;
 		}
 		
-		@Override
 		public void run()
 		{
 			if(count > 0)

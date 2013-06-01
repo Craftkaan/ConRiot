@@ -291,7 +291,6 @@ public class ShuManager implements Listener
 			this.name = name;
 		}
 		
-		@Override
 		public void run()
 		{
 			// Release the player if online

@@ -89,7 +89,6 @@ public class UpdateManager implements Listener
 			this.player = player;
 		}
 		
-		@Override
 		public void run()
 		{
 			boolean hasMessages = false;

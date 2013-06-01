@@ -86,6 +86,7 @@ public class VipManager implements Listener {
 			Vip v = new Vip(plugin, vipData);
 			v.create(name, rank);
 			v.apply(p);
+			vips.put(name, v);
 			return true;
 		} else
 		{
@@ -150,7 +151,6 @@ public class VipManager implements Listener {
 	
 	public Vip getVipRecord(String name)
 	{
-		name = PlayerUtils.resolveName(name);
 		return vips.get(name);
 	}
 	

@@ -35,7 +35,8 @@ public class ExpirationCommand extends AbstractCommand
 						int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
 						int minutes = (timeleft / 1000) / 60;
 						int hours = minutes / 60;
-						getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, name, ("" + hours +" hours and " + minutes + "minutes"));
+						minutes = minutes % 60;
+						getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, name, ("" + hours +" hours and " + minutes + " minutes"));
 					} else
 					{
 						getPlugin().getMessages().send(sender, Message.WARDEN_VIP_NO_RECORD, name);
@@ -56,7 +57,8 @@ public class ExpirationCommand extends AbstractCommand
 				int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
 				int minutes = (timeleft / 1000) / 60;
 				int hours = minutes / 60;
-				getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, sender.getName(), ("" + hours +" hours and " + minutes + "minutes"));
+				minutes = minutes % 60;
+				getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, sender.getName(), ("" + hours +" hours and " + minutes + " minutes"));
 			} else
 			{
 				getPlugin().getMessages().send(sender, Message.WARDEN_VIP_NO_RECORD, sender.getName());
