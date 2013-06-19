@@ -30,13 +30,19 @@ public class ExpirationCommand extends AbstractCommand
 				if(name != null)
 				{
 					Vip v = getPlugin().getVipManager().getVipRecord(name);
-					if((v != null) && (v.getExpiration() != 0))
+					if((v != null) && (v.getRank() <= 2))
 					{
-						int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
-						int minutes = (timeleft / 1000) / 60;
-						int hours = minutes / 60;
-						minutes = minutes % 60;
-						getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, name, ("" + hours +" hours and " + minutes + " minutes"));
+						if((v.getExpiration() != 0) && (v.getExpiration() > System.currentTimeMillis()))
+						{
+							int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
+							int minutes = (timeleft / 1000) / 60;
+							int hours = minutes / 60;
+							minutes = minutes % 60;
+							getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, name, ("" + hours +" hours and " + minutes + " minutes"));
+						} else
+						{
+							getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRED_OTHER, name);
+						}
 					} else
 					{
 						getPlugin().getMessages().send(sender, Message.WARDEN_VIP_NO_RECORD, name);
@@ -52,13 +58,19 @@ public class ExpirationCommand extends AbstractCommand
 		} else if(args.length == 0)
 		{
 			Vip v = getPlugin().getVipManager().getVipRecord(sender.getName());
-			if((v != null) && (v.getExpiration() != 0))
+			if((v != null) && (v.getRank() <= 2))
 			{
-				int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
-				int minutes = (timeleft / 1000) / 60;
-				int hours = minutes / 60;
-				minutes = minutes % 60;
-				getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION_OTHER, sender.getName(), ("" + hours +" hours and " + minutes + " minutes"));
+				if((v.getExpiration() != 0) && (v.getExpiration() > System.currentTimeMillis()))
+				{
+					int timeleft = (int) (v.getExpiration() - System.currentTimeMillis());
+					int minutes = (timeleft / 1000) / 60;
+					int hours = minutes / 60;
+					minutes = minutes % 60;
+					getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRATION, ("" + hours +" hours and " + minutes + " minutes"));
+				} else
+				{
+					getPlugin().getMessages().send(sender, Message.WARDEN_VIP_EXPIRED);
+				}
 			} else
 			{
 				getPlugin().getMessages().send(sender, Message.WARDEN_VIP_NO_RECORD, sender.getName());

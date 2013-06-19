@@ -19,8 +19,7 @@ public class WardenCommand extends AbstractCommand
 		addSubCommand(new WardenDelCommand(plugin), "del");
 		addSubCommand(new WardenAddPointsCommand(plugin), "addpoints");
 		addSubCommand(new WardenDelPointsCommand(plugin), "delpoints");
-		addSubCommand(new WardenAddVipCommand(plugin), "addvip");
-		addSubCommand(new WardenUpdateVipCommand(plugin), "updatevip");
+		addSubCommand(new WardenDonationCommand(plugin), "donation");
 		addSubCommand(new WardenUpdateCommand(plugin), "update");
 	}
 

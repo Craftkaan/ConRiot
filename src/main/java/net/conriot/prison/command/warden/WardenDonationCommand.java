@@ -8,10 +8,10 @@ import net.conriot.prison.Message;
 import net.conriot.prison.command.AbstractCommand;
 import net.conriot.prison.util.PlayerUtils;
 
-public class WardenUpdateVipCommand extends AbstractCommand
+public class WardenDonationCommand extends AbstractCommand
 {
 
-	public WardenUpdateVipCommand(ConRiot plugin)
+	public WardenDonationCommand(ConRiot plugin)
 	{
 		super(plugin);
 		setPlayerAllowed(true);
@@ -21,7 +21,7 @@ public class WardenUpdateVipCommand extends AbstractCommand
 	@Override
 	public void execute(CommandSender sender, Command command, String label, String[] args, int argpos)
 	{
-		// warden 		updatevip 	<name>		<amount>
+		// warden 		donation 	<name>		<amount>
 		// command		args[0]		args[1]		args[2]
 		if(sender.hasPermission("conriot.guard.warden"))
 		{
