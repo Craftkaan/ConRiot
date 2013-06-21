@@ -26,7 +26,7 @@ public class PlayerListener extends AbstractListener
 			if (player.getKiller() instanceof Player)
 			{
 				Player hunter = (Player) player.getKiller();
-				// no self bounty
+				// Prevent self bounty
 				if (hunter != player)
 				{
 					try
@@ -34,6 +34,7 @@ public class PlayerListener extends AbstractListener
 						getPlugin().getEconomy().giveMoney(hunter, data.getBounty());
 						getPlugin().getMessages().broadcast(Message.BOUNTY_COLLECTED, hunter.getName(), player.getName(), data.getBounty());
 						data.setBounty(0);
+						data.save();
 					}
 					catch (EconomyException ex)
 					{

@@ -39,10 +39,13 @@ public enum Message
 	
 	// Guard messages
 	GUARD_ALREADY_ON(),
+	GUARD_CANNOT(),
 	GUARD_NOT_GUARD(),
 	GUARD_NOT_ON(),
 	GUARD_OFF("player"),
 	GUARD_ON("player"),
+	GUARD_PENDING_OFF("player"),
+	GUARD_PENDING_ON("player"),
 	
 	// Mine messages
 	MINE_ADD_FAILURE("id", "type", "data"),

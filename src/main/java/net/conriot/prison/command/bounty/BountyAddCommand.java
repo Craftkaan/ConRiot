@@ -75,6 +75,7 @@ public class BountyAddCommand extends AbstractCommand
 			int bounty = targetData.getBounty();
 			bounty += amount;
 			targetData.setBounty(bounty);
+			targetData.save();
 			
 			getPlugin().getMessages().broadcast(Message.BOUNTY_ADDED, player.getName(), target.getName(), eco.format(amount), eco.format(bounty));
 		}

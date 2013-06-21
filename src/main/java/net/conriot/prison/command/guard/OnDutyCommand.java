@@ -1,8 +1,5 @@
 package net.conriot.prison.command.guard;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,7 +8,6 @@ import net.conriot.prison.ConRiot;
 import net.conriot.prison.Message;
 import net.conriot.prison.PlayerData;
 import net.conriot.prison.command.AbstractCommand;
-import net.milkbowl.vault.permission.Permission;
 
 public class OnDutyCommand extends AbstractCommand
 {
@@ -25,43 +21,24 @@ public class OnDutyCommand extends AbstractCommand
 	public void execute(CommandSender sender, Command command, String label, String[] args, int argpos)
 	{
 		Player player = (Player) sender;
-		PlayerData playerData = getPlugin().getPlayerData().get(player);
 		
-		if (playerData == null || playerData.getGuardRank() == null)
+		// Validate that player is a guard
+		PlayerData pd = getPlugin().getPlayerData().get(player);
+		if(pd == null)
 		{
-			getPlugin().getMessages().send(sender, Message.GUARD_NOT_GUARD);
+			getPlugin().getMessages().send(player, Message.GUARD_NOT_GUARD);
+			return;
+		} else if(pd.getGuardRank() == null)
+		{
+			getPlugin().getMessages().send(player, Message.GUARD_NOT_GUARD);
 			return;
 		}
 		
-		if (playerData.isOnGuardDuty())
+		//Attempt to schedule the guard to go on duty
+		if(getPlugin().getGuardManager().scheduleOnDuty(player))
 		{
-			getPlugin().getMessages().send(sender, Message.GUARD_ALREADY_ON);
-			return;
+			// Announce that guard will be going on duty
+			getPlugin().getMessages().broadcast(Message.GUARD_PENDING_ON, player.getName());
 		}
-		
-		Permission perms = getPlugin().getPermission();
-		
-		List<String> groups = Arrays.asList(perms.getPlayerGroups(player));
-		
-		playerData.setNormalRanks(groups);
-		
-		// log just in case
-		getPlugin().getLogger().info("[OnDutyCommand] " + player.getName() + " started at " + groups);
-		
-		playerData.setOnGuardDuty(true);
-		
-		// add to guard group
-		perms.playerAddGroup(player, playerData.getGuardRank());
-		
-		// remove all other groups
-		for (String group : groups)
-		{
-			perms.playerRemoveGroup(player, group);
-		}
-		
-		//
-		getPlugin().getLogger().info("[OnDutyCommand] " + player.getName() + " now has " + Arrays.asList(perms.getPlayerGroups(player)));
-		
-		getPlugin().getMessages().broadcast(Message.GUARD_ON, player.getName());
 	}
 }

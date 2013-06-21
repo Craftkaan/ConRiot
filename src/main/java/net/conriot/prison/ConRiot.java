@@ -17,6 +17,7 @@ import net.conriot.prison.command.warden.ExpirationCommand;
 import net.conriot.prison.command.warden.OpCommand;
 import net.conriot.prison.command.warden.WardenCommand;
 import net.conriot.prison.economy.EconomyManager;
+import net.conriot.prison.guard.GuardManager;
 import net.conriot.prison.listener.BlockListener;
 import net.conriot.prison.listener.EntityListener;
 import net.conriot.prison.listener.PlayerListener;
@@ -42,12 +43,13 @@ public class ConRiot extends JavaPlugin
 	@Getter private ShuManager shuManager;
 	@Getter private UpdateManager updateManager;
 	@Getter private VipManager vipManager;
+	@Getter private GuardManager guardManager;
 	@Getter private Permission permission;
 	
 	@Override
 	public void onEnable()
 	{
-		playerData = new PlayerDataManager();
+		playerData = new PlayerDataManager(this);
 		
 		playerData.getOrCreate("prplz").setGuardRank("Trainee"); // le test
 		playerData.getOrCreate("Endain").setGuardRank("Trainee"); // le other test
@@ -106,6 +108,9 @@ public class ConRiot extends JavaPlugin
 		vipManager = new VipManager(this);
 		getCommand("expiration").setExecutor(new ExpirationCommand(this));
 		
+		// Load up the guard manager
+		guardManager = new GuardManager(this);
+		
 		// Register Guard commands
 		getCommand("bounty").setExecutor(new BountyCommand(this));
 		getCommand("onduty").setExecutor(new OnDutyCommand(this));
@@ -121,5 +126,16 @@ public class ConRiot extends JavaPlugin
 		new PlayerListener(this).register();
 		new BlockListener(this).register();
 		new EntityListener(this).register();
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		// Perform any actions that must be performed on shutdown
+		
+		// Force the player data to save
+		playerData.save();
+		// Force any guards on duty to off duty
+		guardManager.onDisable();
 	}
 }
