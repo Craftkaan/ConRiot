@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.conriot</groupId>
   <artifactId>conriot</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-ALPHA</version>
   <name>ConRiot</name>
     
   <repositories>
@@ -59,6 +59,7 @@
 	  <scope>provided</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>

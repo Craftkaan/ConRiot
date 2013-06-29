@@ -24,7 +24,8 @@ commands:
     description: Send players to the SHU or view records
   spot:
     description: Spot a player doing something wrong
-  points: {}
+  points:
+    description: View your current guard rank and guard points
   cell:
     description: Cell management commands
   mine:

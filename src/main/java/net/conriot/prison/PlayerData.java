@@ -13,7 +13,7 @@ public class PlayerData
 	private ConfigAccessor playerData;
 	@Getter private final String name;
 	@Getter @Setter private int bounty;
-	@Getter @Setter private int guardPoints;
+	@Getter @Setter private double guardPoints;
 	@Getter @Setter private boolean onGuardDuty;
 	@Getter @Setter private String guardRank;
 	@Getter @Setter private List<String> normalRanks;
@@ -32,7 +32,7 @@ public class PlayerData
 	public void load()
 	{
 		bounty = playerData.getConfig().getInt(name + ".bounty");
-		guardPoints = playerData.getConfig().getInt(name + ".guardPoints");
+		guardPoints = playerData.getConfig().getDouble(name + ".guardPoints");
 		guardRank = playerData.getConfig().getString(name + ".guardRank");
 	}
 	

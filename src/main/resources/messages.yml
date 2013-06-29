@@ -41,10 +41,12 @@ guard_already_on: '&6.::[&bGuard&6]::. &cError: &4You''re already on guard duty!
 guard_cannot: '&6.::[&bGuard&6]::. &cError: &4You cannot use that command at this time!'
 guard_not_guard: '&6.::[&bGuard&6]::. &cError: &4You''re not a guard!'
 guard_not_on: '&6.::[&bGuard&6]::. &cError: &4You''re not on guard duty!'
+guard_now_guard: '&6.::[&bGuard&6]::. &f{player} &bhas graduted from &fTrainee &bto &fGuard &brank!'
 guard_off: '&6.::[&bGuard&6]::. &b{player} is now off guard duty!'
 guard_on: '&6.::[&bGuard&6]::. &b{player} is now on guard duty!'
 guard_pending_off: '&6.::[&bGuard&6]::. &b{player} will go off guard duty in 10 seconds!'
 guard_pending_on: '&6.::[&bGuard&6]::. &b{player} will go on guard duty in 10 seconds!'
+guard_points: '&6.::[&bGuard&6]::. &bYour rank is &f{rank} &band you have &f{points} &bguard points!'
 
 # MINE TEXT
 mine_add_failure: '&7.::[&dMine&7]::. &cCould not add (&4{type}&c,&4{data}&c) to: &4{id}&c!'

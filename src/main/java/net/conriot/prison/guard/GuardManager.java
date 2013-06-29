@@ -6,8 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +31,7 @@ public class GuardManager implements Listener {
 	private HashSet<String> pendingOffDuty;
 	private HashMap<String, GuardGear> gear;
 	private HashMap<String, Player> onDuty;
+	private HashMap<String, Location> lastLocation;
 	
 	public GuardManager(ConRiot plugin)
 	{
@@ -37,9 +40,13 @@ public class GuardManager implements Listener {
 		pendingOffDuty = new HashSet<String>();
 		gear = new HashMap<String, GuardGear>();
 		onDuty = new HashMap<String, Player>();
+		lastLocation = new HashMap<String, Location>();
 		
 		// Register event listeners
 		Bukkit.getPluginManager().registerEvents(this, plugin);
+		
+		// Schedule first points check
+		plugin.getServer().getScheduler().runTaskLater(plugin, new ActivityChecker(), 1200);
 	}
 	
 	public boolean scheduleOnDuty(Player player)
@@ -104,6 +111,7 @@ public class GuardManager implements Listener {
 		playerData.setOnGuardDuty(true);
 		pendingOnDuty.remove(player.getName());
 		onDuty.put(player.getName(), player);
+		lastLocation.put(player.getName(), player.getLocation().clone());
 		
 		// Add to guard group
 		perms.playerAddGroup(player, playerData.getGuardRank());
@@ -155,6 +163,7 @@ public class GuardManager implements Listener {
 		data.setOnGuardDuty(false);
 		pendingOffDuty.remove(player.getName());
 		onDuty.remove(player.getName());
+		lastLocation.remove(player.getName());
 		
 		// Debuff and remove from gear list
 		gear.get(player.getName()).debuff();
@@ -282,6 +291,39 @@ public class GuardManager implements Listener {
 				plugin.getMessages().broadcast(Message.GUARD_OFF, player.getName());
 			else
 				plugin.getMessages().send(player, Message.GUARD_NOT_ON);
+		}
+	}
+	
+	private class ActivityChecker implements Runnable
+	{
+		public void run() 
+		{
+			for(Entry<String, Location> player : lastLocation.entrySet())
+			{
+				Player p = onDuty.get(player.getKey());
+				if(p != null)
+				{
+					PlayerData pd = plugin.getPlayerData().get(player.getKey());
+					// Add points
+					if(p.getLocation().distanceSquared(player.getValue()) > 5f)
+					{
+						pd.setGuardPoints(pd.getGuardPoints() + 15);//0.0166666666667); // 1/60th point per minute
+						// Update player position
+						player.setValue(p.getLocation().clone());
+					}
+					// Check if point threshold is reached
+					if(pd.getGuardPoints() >= 100)
+					{
+						if(pd.getGuardRank().equalsIgnoreCase("Trainee"))
+						{
+							pd.setGuardRank("Guard");
+							plugin.getMessages().broadcast(Message.GUARD_NOW_GUARD, player.getKey());
+						}
+					}
+				}
+			}
+			// Schedule the next points check
+			plugin.getServer().getScheduler().runTaskLater(plugin, new ActivityChecker(), 1200);
 		}
 	}
 }

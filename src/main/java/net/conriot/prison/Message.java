@@ -42,10 +42,12 @@ public enum Message
 	GUARD_CANNOT(),
 	GUARD_NOT_GUARD(),
 	GUARD_NOT_ON(),
+	GUARD_NOW_GUARD("player"),
 	GUARD_OFF("player"),
 	GUARD_ON("player"),
 	GUARD_PENDING_OFF("player"),
 	GUARD_PENDING_ON("player"),
+	GUARD_POINTS("rank", "points"),
 	
 	// Mine messages
 	MINE_ADD_FAILURE("id", "type", "data"),
